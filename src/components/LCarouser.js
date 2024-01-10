@@ -20,24 +20,20 @@ export default function Mycarousel({
     if(!autoSlide) return
     const slideInterval = setInterval(next,autoSlideInterval)
     return ()=> clearInterval(slideInterval)
-  })
+  },)
+
+  const clonedSlides = [
+    slides[slides.length],
+    ...slides,
+    slides[0],
+  ];
 
   return (
-    <div className="overflow-hidden rounded-lg" >
-      <div className="flex flex-row transition-transform ease-out duration-500"
-        style={{transform: `translate(-${curr*(100/ slides.length)}%)`}}
+    <div className="overflow-hidden" >
+      <div className="flex flex-row transition-transform ease-out duration-1000"
+        style={{transform: `translate(-${(curr)*(100/4)}%)`}}
       >
-        {slides.map((slide, index) => (
-          <div key={index} >
-            {slide}
-          </div>
-        ))}
-        {slides.map((slide, index) => (
-          <div key={index} >
-            {slide}
-          </div>
-        ))}
-        {slides.map((slide, index) => (
+        {clonedSlides.map((slide, index) => (
           <div key={index} >
             {slide}
           </div>

@@ -6,7 +6,7 @@ import logo from "./images/venturelist-favicon-color.png";
 export default class NavBar extends Component {
   render() {
     return (
-      <nav className=" bg-white w-full flex relative justify-between items-center mx-auto px-8 h-20">
+      <nav className=" bg-white w-full flex relative justify-between items-center mx-auto px-8 h-16">
         {/* <!-- logo --> */}
         <div className="inline-flex">
           <a className="_o6689fn" href="/">

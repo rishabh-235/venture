@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -7,28 +8,36 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-export default function CardDefault() {
+export default function CardDefault({ Src, Invested, Investor, Coinvested }) {
+  const [Img, setImg] = useState("");
+
+  useEffect(() => {
+    // Update the src when the newImg prop changes
+    setImg(Src);
+  }, [Src]);
+
   return (
-    <Card className=" w-96 rounded-lg">
-      <CardHeader color="blue-gray" className="relative h-auto">
-        <img
-          src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-          alt="cardimage"
-          className=" h-full"
-        />
+    <Card className=" ml-4 w-60 rounded-2xl">
+      <CardHeader color="blue-gray" className="relative h-auto rounded-2xl">
+        <img src={Img} alt="cardimage" className=" h-full" />
       </CardHeader>
-      <CardBody>
-        <h5 className="text-blue-gray mb-2">
-          UI/UX Review Check
-        </h5>
-        <p>
-          The place is close to Barceloneta Beach and bus stop just 2 min by
-          walk and near to &quot;Naviglio&quot; where you can enjoy the main
-          night life in Barcelona.
-        </p>
+      <CardBody className=" mt-6 ml-5">
+        <div className="flex">
+          <div className=" w-auto mr-7">
+            <p className=" text-2xl font-light ">${Invested}</p>
+            <p className="flex ">invested</p>
+          </div>
+          <div className=" w-ato ml-7">
+            <p className="flex text-2xl font-light">{Investor}</p>
+            <p className="flex">investor</p>
+          </div>
+        </div>
       </CardBody>
-      <CardFooter className="pt-0 ">
-        <Button className="text-cyan-500">Read More</Button>
+      <CardFooter className="pt-0 flex m-5 h-10 items-center">
+        <div>
+        <img src={Coinvested} alt="logo" className=" w-20 h-auto mr-2"/>
+        </div>
+        <span>co-invested</span>
       </CardFooter>
     </Card>
   );
