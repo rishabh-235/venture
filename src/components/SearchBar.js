@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const SearchBar = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
@@ -13,7 +13,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="hidden sm:block flex-shrink flex-grow justify-start px-2">
+    <div className="hidden md:block flex-shrink flex-grow justify-start px-2">
       <div className="inline-block">
         <div className="inline-flex items-center max-w-full">
           <button
@@ -38,13 +38,13 @@ const SearchBar = () => {
                 role="presentation"
                 focusable="false"
                 style={{
-                  display: 'block',
-                  fill: 'none',
-                  height: '12px',
-                  width: '12px',
-                  stroke: 'currentcolor',
-                  strokewidth: '5.33333',
-                  overflow: 'visible',
+                  display: "block",
+                  fill: "none",
+                  height: "12px",
+                  width: "12px",
+                  stroke: "currentcolor",
+                  strokewidth: "5.33333",
+                  overflow: "visible",
                 }}
               >
                 <g fill="none">

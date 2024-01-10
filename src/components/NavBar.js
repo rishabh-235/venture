@@ -27,7 +27,7 @@ export default class NavBar extends Component {
           </a>
 
           <a
-            className="inline-block py-2 px-3 hover:bg-gray-200 rounded-full"
+            className="hidden lg:inline-block py-2 px-3 hover:bg-gray-200 rounded-full"
             href="/"
           >
             <div className="flex items-center relative cursor-pointer whitespace-nowrap">
@@ -45,7 +45,7 @@ export default class NavBar extends Component {
           <div className="flex justify-end items-center relative">
             <div className="flex mr-4 items-center">
               <a
-                className="inline-block py-2 px-3 hover:bg-gray-200 rounded-full"
+                className="hidden lg:inline-block py-2 px-3 hover:bg-gray-200 rounded-full"
                 href="/"
               >
                 <div className="flex items-center relative cursor-pointer whitespace-nowrap">
@@ -76,9 +76,9 @@ export default class NavBar extends Component {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m1 1 4 4 4-4"
                             />
                           </svg>
@@ -134,25 +134,6 @@ export default class NavBar extends Component {
                         </ul>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="sm:hidden">
-                    <button className="text-white focus:outline-none">
-                      <svg
-                        className="h-6 w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M4 6h16M4 12h16m-7 6h7"
-                        ></path>
-                      </svg>
-                    </button>
                   </div>
                 </div>
               </nav>
