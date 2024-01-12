@@ -17,11 +17,11 @@ export default function CardDefault({ Src, Invested, Investor, Coinvested }) {
   }, [Src]);
 
   return (
-    <Card className=" ml-4 w-60 rounded-2xl">
+    <Card className="ml-4 mt-2 w-64  rounded-2xl">
       <CardHeader color="blue-gray" className="relative h-auto rounded-2xl">
         <img src={Img} alt="cardimage" className=" h-full" />
       </CardHeader>
-      <CardBody className=" mt-6 ml-5">
+      <CardBody className=" mt-5 ml-5">
         <div className="flex">
           <div className=" w-auto mr-7">
             <p className=" text-2xl font-light ">${Invested}</p>
@@ -33,9 +33,9 @@ export default function CardDefault({ Src, Invested, Investor, Coinvested }) {
           </div>
         </div>
       </CardBody>
-      <CardFooter className="pt-0 flex m-5 h-10 items-center">
+      <CardFooter className="pt-0 flex ml-5 mt-2 h-10 items-center">
         <div>
-        <img src={Coinvested} alt="logo" className=" w-20 h-auto mr-2"/>
+        <img src={Coinvested} alt="logo" className=" w-16 h-auto mr-2"/>
         </div>
         <span>co-invested</span>
       </CardFooter>

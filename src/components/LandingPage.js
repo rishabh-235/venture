@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Mycarousel from "./LCarouser";
+import Mycarousel from "./carsousel/LCarouser";
+import Vercarousel from "./carsousel/VerCarousel";
 import CardDefault from "./Lcards";
 import CircularArray from "./DataStructures/CircularArray";
 import img1 from "./images/Lcarousel_img/adfontesmedia-card.webp";
@@ -24,7 +25,7 @@ export default class LandingPage extends Component {
     super(props);
 
     // Create a CircularArray to manage the props for CardDefault
-    this.cardsArray = new CircularArray(12); // Set the capacity as needed
+    this.cardsArray = new CircularArray(9); // Set the capacity as needed
     this.cardsArray.enqueue({
       src: img1,
       invested: "595877",
@@ -83,8 +84,8 @@ export default class LandingPage extends Component {
 
   render() {
     return (
-      <div className="bg-gradient-to-tr from-white to-orange-200">
-        <div className="hidden">
+      <div className="bg-gradient-to-tr from-white via-white to-orange-200">
+        <div className="xl:hidden">
           <div className="flex flex-col w-auto mb-9">
             <h5 className="text-4xl font-semibold mt-7 tracking-wide">
               Invest in{" "}
@@ -120,8 +121,8 @@ export default class LandingPage extends Component {
           </div>
 
           <div className="flex items-center justify-center">
-            <Mycarousel autoSlideInterval={5000} children={this.cardsArray}>
-              {Array.from({ length: 12 }).map((_, index) => (
+            <Mycarousel children={this.cardsArray}>
+              {Array.from({ length: 24 }).map((_, index) => (
                 <CardDefault
                   key={index}
                   Src={this.cardsArray.peek().src}
@@ -134,8 +135,8 @@ export default class LandingPage extends Component {
           </div>
         </div>
 
-        <div className=" ml-24">
-          <div className="flex">
+        <div className="xl:flex hidden">
+          <div className="flex ml-20">
             <div className="flex flex-col w-auto mb-9">
               <h5 className="text-7xl mt-28 tracking-wide flex flex-col items-start">
                 Invest in{" "}
@@ -176,7 +177,38 @@ export default class LandingPage extends Component {
               </div>
             </div>
           </div>
-          <div></div>
+
+          <div className="flex items-center justify-center w-1/2   -mt-9" style={{ rotate: "3deg" }}>
+            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-orange-100 via-orange-100 to-transparent z-10"></div>
+            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-10 "></div>
+            <div className="flex items-center justify-center w-72 -m-4 mr-2 ">
+              <Vercarousel children={this.cardsArray} anime={"U"} rever={""}>
+                {Array.from({ length: 9 }).map((_, index) => (
+                  <CardDefault
+                    key={index}
+                    Src={this.cardsArray.top().src}
+                    Invested={this.cardsArray.top().invested}
+                    Investor={this.cardsArray.top().investor}
+                    Coinvested={this.cardsArray.peek().coinvested}
+                  />
+                ))}
+              </Vercarousel>
+            </div>
+
+            <div className="flex items-center justify-center w-72">
+              <Vercarousel children={this.cardsArray} anime={"D"} rever={"flex flex-col-reverse"}>
+                {Array.from({ length: 12 }).map((_, index) => (
+                  <CardDefault
+                    key={index}
+                    Src={this.cardsArray.top().src}
+                    Invested={this.cardsArray.top().invested}
+                    Investor={this.cardsArray.top().investor}
+                    Coinvested={this.cardsArray.peek().coinvested}
+                  />
+                )).reverse()}
+              </Vercarousel>
+            </div>
+          </div>
         </div>
       </div>
     );

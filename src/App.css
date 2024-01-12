@@ -28,11 +28,93 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+
+@keyframes slideAnimationU {
   from {
-    transform: rotate(0deg);
+    transform: translateY(0);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateY(-100%);
   }
+}
+
+.slideU {
+  animation: slideAnimationU 200s linear infinite;
+}
+
+@keyframes slideAnimationD {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.slideD {
+  animation: slideAnimationD 200s linear infinite;
+}
+
+@keyframes slideAnimationRL {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideAnimationLR {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.slide {
+  animation: slideAnimationRL 280s linear infinite;
+}
+
+
+.displayhead {
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.display{
+  font-size: 3.8rem;
+  font-weight: 500;
+  color: #38393c;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 3px;
+}
+
+.displayd{
+  font-size: 1.1rem;
+  color: #000000;
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.displayr{
+  font-size: 3.8rem;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 3px;
+  color: transparent;
+  background: linear-gradient(to right, #ffffff, #186ff1 ,#186ff1 );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.displayslideRL {
+  animation: slideAnimationRL 80s linear infinite;
+}
+
+.displayslideLR {
+  animation: slideAnimationLR 80s linear infinite;
 }

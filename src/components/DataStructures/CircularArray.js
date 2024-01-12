@@ -50,6 +50,15 @@ class CircularArray {
     return frontElement;
   }
 
+  top(){
+    if(this.size===0)
+    {
+      return;
+    }
+
+    return this.array[this.front];
+  }
+
   print() {
     let result = [];
     for (let i = 0; i < this.size; i++) {
