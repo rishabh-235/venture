@@ -28,6 +28,7 @@
   color: #61dafb;
 }
 
+/* CSS for Display component and for Related crasoules*/
 
 @keyframes slideAnimationU {
   from {
@@ -79,12 +80,14 @@
 
 
 .displayhead {
-  font-size: 1.2rem;
-  letter-spacing: 0.5px;
+  font-size: 1.4vw;
+  letter-spacing: 0.8px;
+  margin-bottom: 2vw;
 }
 
 .display{
-  font-size: 3.8rem;
+  font-size: 6.8vw;
+  line-height: 7vw;
   font-weight: 500;
   color: #38393c;
   font-family: 'Montserrat', sans-serif;
@@ -92,7 +95,7 @@
 }
 
 .displayd{
-  font-size: 1.1rem;
+  font-size: 1.5vw;
   color: #000000;
   font-weight: 400;
   font-family: 'Montserrat', sans-serif;
@@ -100,7 +103,8 @@
 }
 
 .displayr{
-  font-size: 3.8rem;
+  font-size: 6.8vw;
+  line-height: 7vw;
   font-weight: 500;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 3px;
@@ -112,9 +116,25 @@
 }
 
 .displayslideRL {
-  animation: slideAnimationRL 80s linear infinite;
+  animation: slideAnimationRL 150s linear infinite;
 }
 
 .displayslideLR {
-  animation: slideAnimationLR 80s linear infinite;
+  animation: slideAnimationLR 150s linear infinite;
+}
+
+/* CSS for StartupDisplay */
+
+.startdis{
+  font-family: 'Montserrat', sans-serif;
+  word-spacing: 2px;
+  line-height: 3.2vw;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }

@@ -101,7 +101,7 @@ export default class NavBar extends Component {
                               href="#action/2"
                               className="flex items-center px-4 py-2 hover:border-b hover:border-gray-700"
                             >
-                              Trnding Investor
+                              Traning Investor
                             </a>
                           </li>
                           

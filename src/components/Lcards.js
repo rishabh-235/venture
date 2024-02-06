@@ -5,10 +5,9 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Button,
 } from "@material-tailwind/react";
 
-export default function CardDefault({ Src, Invested, Investor, Coinvested }) {
+export default function Lcards({ Src, Invested, Investor, Coinvested }) {
   const [Img, setImg] = useState("");
 
   useEffect(() => {
@@ -17,7 +16,7 @@ export default function CardDefault({ Src, Invested, Investor, Coinvested }) {
   }, [Src]);
 
   return (
-    <Card className="ml-4 mt-2 w-64  rounded-2xl">
+    <Card className="ml-4 mt-9 w-64  rounded-2xl">
       <CardHeader color="blue-gray" className="relative h-auto rounded-2xl">
         <img src={Img} alt="cardimage" className=" h-full" />
       </CardHeader>
