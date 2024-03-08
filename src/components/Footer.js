@@ -86,7 +86,7 @@ export default function Footer() {
               className="opacity-80 transition-opacity hover:opacity-100"
             >
               <svg
-                className="h-5 w-5"
+                className="h-7 w-7"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -104,7 +104,7 @@ export default function Footer() {
               className="opacity-80 transition-opacity hover:opacity-100"
             >
               <svg
-                className="h-5 w-5"
+                className="h-7 w-7"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -122,7 +122,7 @@ export default function Footer() {
               className="opacity-80 transition-opacity hover:opacity-100"
             >
               <svg
-                className="h-5 w-5"
+                className="h-7 w-7"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -136,7 +136,7 @@ export default function Footer() {
               className="opacity-80 transition-opacity hover:opacity-100"
             >
               <svg
-                className="h-5 w-5"
+                className="h-7 w-7"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -154,7 +154,7 @@ export default function Footer() {
               className="opacity-80 transition-opacity hover:opacity-100"
             >
               <svg
-                className="h-5 w-5"
+                className="h-7 w-7"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
