@@ -1,6 +1,16 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Mycarousel from "./carsousel/LCarouser";
 import Vercarousel from "./carsousel/VerCarousel";
+import Display from './Display';
+import StartupDisplay from './StartupDisplay';
+import InvestorDisplay from './InvestorDisplay';
+import InvestingProfile from './InvestingProfile';
+import WhyToInvest from './WhyToInvest';
+import NewToInvesting from './NewToInvesting';
+import FAQPage from './FAQPage';
+import ReadyToFunding from './ReadyToFunding';
+import FeedbackDisplay from './FeedbackDisplay';
 import Lcards from "./Lcards";
 import CircularArray from "./DataStructures/CircularArray";
 import img1 from "./images/Lcarousel_img/adfontesmedia-card.webp";
@@ -84,126 +94,107 @@ export default class LandingPage extends Component {
 
   render() {
     return (
-      <div className="bg-gradient-to-tr from-white via-white to-orange-200">
-        <div className="xl:hidden">
-          <div className="flex flex-col w-auto mb-9">
-            <h5 className="text-4xl font-semibold mt-7 tracking-wide">
-              Invest in{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-green-500">
-                Community Rounds
-              </span>
-            </h5>
+      <>
+        <div className="bg-gradient-to-tr from-white via-white to-orange-200">
+          <div className="xl:hidden">
+            <div className="flex flex-col w-auto mb-9">
+              <h5 className="text-4xl font-semibold mt-7 tracking-wide">
+                Invest in{" "}
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-green-500">
+                  Community Rounds
+                </span>
+              </h5>
 
-            <p className=" text-gray-900 text-lg mt-5 px-16 tracking-wide">
-              Get equaly and front row seats to the startups and small
-              businesses you love-for as little as $100.
-            </p>
-
-            <div>
-              <button
-                type="button"
-                data-ripple-light="true"
-                class=" mt-5 align-middle select-none text-center transition-all  disabled:pointer-events-none font-semibold text-base tracking-wider py-3.5 px-36 rounded-lg bg-light-blue-700 text-white hover:shadow-lg hover:bg-light-blue-900 border-y border-x border-light-blue-700"
-              >
-                Join VentureList
-              </button>
-            </div>
-
-            <div>
-              <button
-                type="button"
-                data-ripple-light="true"
-                class=" mt-3 align-middle select-none text-center transition-all  disabled:pointer-events-none font-semibold text-base tracking-wider py-3.5 px-36 rounded-lg bg-opacity-15 text-black hover:shadow-lg hover:bg-white border-y border-x border-gray-500"
-              >
-                Explore Startups
-              </button>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center">
-            <Mycarousel children={this.cardsArray}>
-              {Array.from({ length: 24 }).map((_, index) => (
-                <Lcards
-                  key={index}
-                  Src={this.cardsArray.peek().src}
-                  Invested={this.cardsArray.peek().invested}
-                  Investor={this.cardsArray.peek().investor}
-                  Coinvested={this.cardsArray.peek().coinvested}
-                />
-              ))}
-            </Mycarousel>
-          </div>
-        </div>
-
-        <div className="xl:flex hidden">
-          <div className="flex flex-col ml-[5vw] w-[50vw] mb-9">
-            <div className="text-[4.5vw] leading-[4.5vw]  mt-28 tracking-wide flex flex-col items-start">
-              <h5 className="">Invest in </h5>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-green-500">
-                Community Rounds
-              </span>
-            </div>
-
-            <div className="flex items-start text-[1.4vw] flex-col">
-              <p className=" text-gray-700 font-semibold mt-[2.5vw]   tracking-wider ">
+              <p className=" text-gray-900 text-lg mt-5 px-16 tracking-wide">
                 Get equaly and front row seats to the startups and small
-              </p>
-              <p className=" text-gray-700 font-semibold mt-1   tracking-wider ">
                 businesses you love-for as little as $100.
               </p>
-            </div>
 
-            <div className="flex mt-[2.5vw]">
-              <div className=" mr-2">
-                <button
-                  type="button"
+              <div>
+                <Link to="/signup"
                   data-ripple-light="true"
-                  class=" mt-5 align-middle select-none text-center transition-all  disabled:pointer-events-none font-semibold text-base tracking-wider py-3.5 px-14 rounded-lg bg-light-blue-700 text-white hover:shadow-lg hover:bg-light-blue-900 border-y border-x border-light-blue-700"
+                  class=" mt-5 align-middle select-none text-center transition-all  disabled:pointer-events-none font-semibold text-base tracking-wider py-3.5 px-36 rounded-lg bg-light-blue-700 text-white hover:shadow-lg hover:bg-light-blue-900 border-y border-x border-light-blue-700"
                 >
                   Join VentureList
-                </button>
+                </Link>
               </div>
 
-              <div className=" ml-2">
+              <div>
                 <button
                   type="button"
                   data-ripple-light="true"
-                  class=" mt-5 align-middle select-none text-center transition-all  disabled:pointer-events-none font-semibold text-base tracking-wider py-3.5 px-14 rounded-lg bg-opacity-15 text-black hover:shadow-lg hover:bg-white border-y border-x border-gray-500"
+                  class=" mt-3 align-middle select-none text-center transition-all  disabled:pointer-events-none font-semibold text-base tracking-wider py-3.5 px-36 rounded-lg bg-opacity-15 text-black hover:shadow-lg hover:bg-white border-y border-x border-gray-500"
                 >
                   Explore Startups
                 </button>
               </div>
             </div>
-          </div>
 
-          <div
-            className="flex items-center justify-center w-[45%] mr-[1.17vw] -mt-9"
-            style={{ rotate: "3deg" }}
-          >
-            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-orange-100 via-orange-100 to-transparent z-10"></div>
-            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-10 "></div>
-            <div className="flex items-center justify-center w-72 -m-4 ">
-              <Vercarousel children={this.cardsArray} anime={"U"} rever={""}>
-                {Array.from({ length: 9 }).map((_, index) => (
+            <div className="flex items-center justify-center">
+              <Mycarousel children={this.cardsArray}>
+                {Array.from({ length: 24 }).map((_, index) => (
                   <Lcards
                     key={index}
-                    Src={this.cardsArray.top().src}
-                    Invested={this.cardsArray.top().invested}
-                    Investor={this.cardsArray.top().investor}
+                    Src={this.cardsArray.peek().src}
+                    Invested={this.cardsArray.peek().invested}
+                    Investor={this.cardsArray.peek().investor}
                     Coinvested={this.cardsArray.peek().coinvested}
                   />
                 ))}
-              </Vercarousel>
+              </Mycarousel>
+            </div>
+          </div>
+
+          <div className="xl:flex hidden">
+            <div className="flex flex-col ml-[5vw] w-[50vw] mb-9">
+              <div className="text-[4.5vw] leading-[4.5vw]  mt-28 tracking-wide flex flex-col items-start">
+                <h5 className="">Invest in </h5>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-green-500">
+                  Community Rounds
+                </span>
+              </div>
+
+              <div className="flex items-start text-[1.4vw] flex-col">
+                <p className=" text-gray-700 font-semibold mt-[2.5vw]   tracking-wider ">
+                  Get equaly and front row seats to the startups and small
+                </p>
+                <p className=" text-gray-700 font-semibold mt-1   tracking-wider ">
+                  businesses you love-for as little as $100.
+                </p>
+              </div>
+
+              <div className="flex mt-[2.5vw]">
+                <div className=" mr-2">
+                  <Link to="/signup"
+                    type="button"
+                    data-ripple-light="true"
+                    class=" mt-5 align-middle select-none text-center transition-all  disabled:pointer-events-none font-semibold text-base tracking-wider py-3.5 px-14 rounded-lg bg-light-blue-700 text-white hover:shadow-lg hover:bg-light-blue-900 border-y border-x border-light-blue-700"
+                  >
+                    Join VentureList
+                  </Link>
+                </div>
+
+                <div className=" ml-2">
+                  <button
+                    type="button"
+                    data-ripple-light="true"
+                    class=" mt-5 align-middle select-none text-center transition-all  disabled:pointer-events-none font-semibold text-base tracking-wider py-3.5 px-14 rounded-lg bg-opacity-15 text-black hover:shadow-lg hover:bg-white border-y border-x border-gray-500"
+                  >
+                    Explore Startups
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className="flex items-center justify-center w-72">
-              <Vercarousel
-                children={this.cardsArray}
-                anime={"D"}
-                rever={"flex flex-col-reverse"}
-              >
-                {Array.from({ length: 12 })
-                  .map((_, index) => (
+            <div
+              className="flex items-center justify-center w-[45%] mr-[1.17vw] -mt-9"
+              style={{ rotate: "3deg" }}
+            >
+              <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-orange-100 via-orange-100 to-transparent z-10"></div>
+              <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-10 "></div>
+              <div className="flex items-center justify-center w-72 -m-4 ">
+                <Vercarousel children={this.cardsArray} anime={"U"} rever={""}>
+                  {Array.from({ length: 9 }).map((_, index) => (
                     <Lcards
                       key={index}
                       Src={this.cardsArray.top().src}
@@ -211,13 +202,42 @@ export default class LandingPage extends Component {
                       Investor={this.cardsArray.top().investor}
                       Coinvested={this.cardsArray.peek().coinvested}
                     />
-                  ))
-                  .reverse()}
-              </Vercarousel>
+                  ))}
+                </Vercarousel>
+              </div>
+
+              <div className="flex items-center justify-center w-72">
+                <Vercarousel
+                  children={this.cardsArray}
+                  anime={"D"}
+                  rever={"flex flex-col-reverse"}
+                >
+                  {Array.from({ length: 12 })
+                    .map((_, index) => (
+                      <Lcards
+                        key={index}
+                        Src={this.cardsArray.top().src}
+                        Invested={this.cardsArray.top().invested}
+                        Investor={this.cardsArray.top().investor}
+                        Coinvested={this.cardsArray.peek().coinvested}
+                      />
+                    ))
+                    .reverse()}
+                </Vercarousel>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <Display/>
+        <StartupDisplay />
+        <InvestorDisplay/>
+        <InvestingProfile/>
+        <WhyToInvest/>
+        <NewToInvesting/>
+        <FAQPage/>
+        <ReadyToFunding/>
+        <FeedbackDisplay/>
+      </>
     );
   }
 }
