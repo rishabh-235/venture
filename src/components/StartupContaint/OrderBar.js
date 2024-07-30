@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import { Card, CardBody, Collapse } from "@material-tailwind/react";
 import kiwilogo from "../images/icons8-kiwi-bird-30.png";
 import axios from "axios";
-import { errors } from "playwright";
+// import { errors } from "playwright";
 
 
 
