@@ -2,7 +2,6 @@ import {React, useState} from "react";
 import { Card, CardBody, Collapse } from "@material-tailwind/react";
 import kiwilogo from "../images/icons8-kiwi-bird-30.png";
 import axios from "axios";
-// import { errors } from "playwright";
 
 
 
@@ -18,20 +17,22 @@ export default function OrderBar() {
   }
 
   const checkoutHandler = async (amount) => {
-    const {data:{ key }} = await axios.get("http://localhost:8000/api/v1/payment/getkey")
+    let order=await axios.post("http://localhost:8000/api/v1/payment/buyShares",{
+      amount
+    });
 
-    var order;
+    const {data} = await axios.get("http://localhost:8000/api/v1/payment/getkey")
+    const key = data.data.key
 
-    
-  
+      
     var options = {
       key,
-      amount: order.amount, 
+      amount: order.data.data.amount, 
       currency: "INR",
       name: "VentureList",
       description: "Test Transaction",
-      image: "https://example.com/your_logo",
-      order_id: order.id, 
+      image: "https://res.cloudinary.com/dmfyjaagg/image/upload/f_auto,q_auto/mksiow3oi5natrhk0cr4",
+      order_id: order.data.data.id, 
       callback_url: "http://localhost:8000/api/v1/payment/paymentverification",
       prefill: {
           name: "Gaurav Kumar",
@@ -55,8 +56,8 @@ export default function OrderBar() {
     <div className="w-[20.8rem] shadow-lg border-x-[1.3px] rounded-md sticky top-0">
       <div className="px-4 pt-4 pb-2">
         <Card className="shadow-none">
-          <CardBody>
-            <div className="mb-3 flex flex-col jus">
+          <CardBody className=" -m-[1.4rem]">
+            <div className=" mb-3 flex flex-col">
               <div className="flex justify-start items-center text-orange-500">
                 <img
                   src={kiwilogo}

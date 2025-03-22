@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from './NavBar';
-
+import { Outlet} from "react-router-dom";
 import Footer from './Footer'
 
 export default class HomePage extends Component {
@@ -8,6 +8,7 @@ export default class HomePage extends Component {
     return (
       <div>
         <NavBar />
+        <Outlet />
         <Footer/>
       </div>
     )

@@ -3,7 +3,6 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Avatar,
 } from "@material-tailwind/react";
 
 export function TestimonialCard() {

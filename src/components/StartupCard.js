@@ -20,7 +20,7 @@ const StartupCard = ({ data }) => {
             className="h-full w-full object-cover transition-transform duration-500"
             src={
               data?.image ||
-              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBrl6V9_Ro0CxnHXNSHX_jQGqqyqjECDQQoA&s"
             }
             alt=""
           />
@@ -32,7 +32,7 @@ const StartupCard = ({ data }) => {
                 className="float-end -mt-6 mr-5 h-12 w-12 rounded-3xl border-2"
                 src={
                   data?.img ||
-                  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6LX_7RF19Rf44bQqFk5McASddDErMnHBX-Q&s"
                 }
                 alt=""
               />
@@ -46,7 +46,7 @@ const StartupCard = ({ data }) => {
               Cash and Reward for Using Uber and Rapido
             </p>
             <div className="flex text-left mt-2 w-10/12 text-blue-gray-600 leading-5 mb-10">
-              Raise $30 million of funding in development round
+              Raise ₹30 million of funding in development round
             </div>
           </div>
           <div>
@@ -61,13 +61,13 @@ const StartupCard = ({ data }) => {
             <div className="ml-3 w-[92%] h-[1.5px] bg-blue-gray-100 mt-6 flex item-center"></div>
             <div className="mt-3 flex flex-col justify-start items-start">
               <div>
-                <span className="font-bold text-[15px] ml-4">$81,61439 </span>
+                <span className="font-bold text-[15px] ml-4">₹81,61439 </span>
                 <span className="text-[15px] text-gray-400 font-[500]">
                   from 1,482 investors
                 </span>
               </div>
               <div>
-                <span className="font-bold text-[15px] ml-4">$75M </span>
+                <span className="font-bold text-[15px] ml-4">₹75M </span>
                 <span className="text-[15px] text-gray-400 font-[500]">
                   valuation
                 </span>

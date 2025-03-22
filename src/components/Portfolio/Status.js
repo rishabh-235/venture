@@ -20,7 +20,7 @@ export default function Status() {
         open={true}
          >
           <Card>
-            <CardBody>
+            <CardBody className=' p-0'>
               <button
                 className="w-full h-[3.2rem] hover:bg-indigo-100 hover:bg-opacity-70 px-2"
                 // onClick={() => toggleOpen("status")}

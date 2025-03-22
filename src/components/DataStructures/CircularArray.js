@@ -1,5 +1,3 @@
-// CircularArray.js
-
 class CircularArray {
   constructor(capacity) {
     this.capacity = capacity;
@@ -41,10 +39,7 @@ class CircularArray {
 
     const frontElement = this.array[this.front];
 
-    // Dequeue the front element
     this.dequeue();
-
-    // Enqueue the front element at the end
     this.enqueue(frontElement);
 
     return frontElement;

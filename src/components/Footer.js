@@ -48,7 +48,7 @@ export default function Footer() {
                       as="a"
                       href="#"
                       color="gray"
-                      className="py-1.5 text-start text-[0.9rem] tracking-wider transition-colors mt-2 hover:text-blue-gray-900"
+                      className="py-1.5 text-start text-[0.95rem] text-gray-500 tracking-wider transition-colors mt-2 hover:text-blue-gray-900 hover:underline cursor-pointer"
                     >
                       {link}
                     </Typography>

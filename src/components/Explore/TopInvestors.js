@@ -26,7 +26,7 @@ export default function TopInvestors() {
       </div>
       <div className="grid grid-cols-3 gap-4">
         {filteredCards.map((card, index) => (
-          <div key={index} className="">
+          <div key={index}>
             <InvestorCard data={card} />
           </div>
         ))}

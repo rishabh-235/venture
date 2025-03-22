@@ -81,7 +81,7 @@ export default function SlickSlider() {
       name: "Climate Change",
     },
     {
-      style: "comedy_mask",
+      style: "theater_comedy",
       name: "Entertainment",
     },
     {

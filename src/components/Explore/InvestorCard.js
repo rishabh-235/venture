@@ -48,7 +48,7 @@ export default function InvestorCard(props) {
     <div className="w-[24rem] h-[29rem] border-[1px] border-gray-100 rounded-lg p-4 mb-5 hover:shadow-md hover:border-gray-200">
       <div className="flex flex-col items-center justify-start mb-10">
         <Avatar
-          src={data.user.avatar || "https://assets.entrepreneur.com/content/3x2/2000/1673527877-anupammittal.jpg?format=pjeg&auto=webp&crop=16:9&width=675&height=380"}
+          src={data.user.avatar || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmd8dYkAzHCoT6wxxEVks7qknjiBnM1PpVN1-MfcBvw3r9p3eZ72s-BiffL4IHFynRHc4&usqp=CAU"}
           alt="avatar"
           className="w-[6rem] h-[6rem] border-[1px] border-gray-300 rounded-[6rem]"
         />

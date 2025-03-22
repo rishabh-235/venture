@@ -7,15 +7,16 @@ export default function Profile() {
   const userData = useSelector((state) => state.auth.userData);
 
   let user = {
-    fullname: "Rishabh Gupta",
+    firstname: "Rishabh",
     address: "Bhopal",
     updatedAt: "March 2024",
+    avatar: "",
   };
 
   if (userData) {
     user = userData;
   }
-
+  
   return (
     <>
       <div className=" flex items-center justify-center w-full h-[35rem] mb-[8rem]">
@@ -27,7 +28,7 @@ export default function Profile() {
               className=" w-[7rem] h-[7rem] rounded-[12rem]"
             />
             <div className=" text-[1.4rem] text-gray-800 font-[600]">
-              {user.fullname}
+              {user.firstname}
             </div>
           </div>
           <div className=" flex flex-col border-2 mt-5 rounded-xl justify-center items-center p-5">
@@ -46,10 +47,10 @@ export default function Profile() {
             </div>
           </div>
           <div className=" w-full text-start mt-3 text-light-blue-700 font-[600]">
-            <Link to="editprofile">Edit Profile</Link>
+            <a href="/settings/public_profile">Edit Profile</a>
           </div>
           {!user.isInvestor && <div className=" w-full text-start mt-3 text-light-blue-700 font-[600]">
-            <Link to="registerinvestor">Become a Investor</Link>
+            <Link to="/settings/investor_information">Become a Investor</Link>
           </div>}
         </div>
       </div>
