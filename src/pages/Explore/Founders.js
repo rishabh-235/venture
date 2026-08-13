@@ -1,7 +1,7 @@
 import React from "react";
-import SlickSlider from "./SlickSlider";
+import SlickSlider from "../../components/Explore/SlickSlider";
 import Startupview from "./Startupview";
-import CardPlacehoderSkeleton from "./CardPlacehoderSkeleton.js";
+import CardPlacehoderSkeleton from "../../components/Explore/CardPlacehoderSkeleton.js";
 
 export default function Founders() {
   let cards = Array.from(Array(8).keys()).map((x) => x + 1);

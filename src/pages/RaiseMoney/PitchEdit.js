@@ -1,20 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { loadPitchData, setLoading, setError, clearError } from "../../redux/slice/pitchDataSlice";
+import { transformStartupToRedux } from "../../utils/pitchDataTransforms";
 
 export default function PitchEdit() {
+  const dispatch = useDispatch();
   const pitchData = useSelector((state) => state.pitchData);
+  const [saveStatus, setSaveStatus] = useState('');
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  // Load existing startup data on component mount
+  useEffect(() => {
+    const loadExistingData = async () => {
+      if (!pitchData.isDataLoaded && isInitialLoad) {
+        dispatch(setLoading(true));
+        try {
+          const response = await axios.get('http://localhost:8000/api/v1/startup/mystartup', { 
+            withCredentials: true 
+          });
+          
+          if (response.data.success && response.data.data) {
+            const transformedData = transformStartupToRedux(response.data.data);
+            dispatch(loadPitchData(transformedData));
+          }
+        } catch (error) {
+          if (error.response?.status === 404) {
+            // No startup found, that's okay for new users
+            dispatch(setLoading(false));
+          } else {
+            console.error("Error loading startup data:", error);
+            dispatch(setError("Failed to load existing data"));
+          }
+        }
+        setIsInitialLoad(false);
+      }
+    };
+
+    loadExistingData();
+  }, [dispatch, pitchData.isDataLoaded, isInitialLoad]);
 
   const pitchDataSubmission = async () => {
-    console.log(pitchData);
+    setSaveStatus('saving');
+    dispatch(clearError());
+    
     try {
-        const response = await axios.post(`http://localhost:8000/api/v1/startup/editpitch`, pitchData, { withCredentials: true });
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/startup/editpitch`, 
+        pitchData, 
+        { withCredentials: true }
+      );
 
-        console.log("Response:", response);
+      if (response.data.success) {
+        setSaveStatus('saved');
+        setTimeout(() => setSaveStatus(''), 3000); // Clear status after 3 seconds
+      }
     } catch (error) {
-        console.error("Error submitting form data:", error);
-        throw error;
+      console.error("Error submitting form data:", error);
+      setSaveStatus('error');
+      dispatch(setError(error.response?.data?.message || "Failed to save pitch data"));
+      setTimeout(() => setSaveStatus(''), 5000);
     }
   };
 
@@ -167,12 +213,35 @@ export default function PitchEdit() {
       </div>
 
       <div className=" flex fixed w-[100%] bottom-0 h-[5rem] z-30 justify-center items-center border-2 bg-white">
-        <button
-          className="gap-1 rounded-lg text-white text-[0.9rem] font-[800] flex justify-center items-center bg-[#16263d] py-[0.55rem] px-6"
-          onClick={pitchDataSubmission}
-        >
-          Save Changes
-        </button>
+        <div className="flex flex-col items-center">
+          <button
+            className={`gap-1 rounded-lg text-white text-[0.9rem] font-[800] flex justify-center items-center py-[0.55rem] px-6 ${
+              saveStatus === 'saving' ? 'bg-gray-500 cursor-not-allowed' :
+              saveStatus === 'saved' ? 'bg-green-600' :
+              saveStatus === 'error' ? 'bg-red-600' :
+              'bg-[#16263d] hover:bg-[#1a2b42]'
+            }`}
+            onClick={pitchDataSubmission}
+            disabled={saveStatus === 'saving'}
+          >
+            {saveStatus === 'saving' && (
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            )}
+            {saveStatus === 'saving' ? 'Saving...' :
+             saveStatus === 'saved' ? 'Saved!' :
+             saveStatus === 'error' ? 'Error!' :
+             'Save Changes'}
+          </button>
+          {pitchData.loading && (
+            <div className="text-sm text-gray-500 mt-1">Loading existing data...</div>
+          )}
+          {pitchData.error && (
+            <div className="text-sm text-red-500 mt-1">{pitchData.error}</div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,18 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePitchData } from "../../../redux/slice/pitchDataSlice";
 
 function Highlights() {
   const dispatch = useDispatch();
-  const [highlightsData, setHighlightsData] = useState({});
+  const pitchData = useSelector((state) => state.pitchData);
+  const [highlightsData, setHighlightsData] = useState({ textData: {} });
+
+  // Load data from Redux when component mounts or when pitchData changes
+  useEffect(() => {
+    if (pitchData.highlights && pitchData.highlights.textData) {
+      setHighlightsData(pitchData.highlights);
+    }
+  }, [pitchData.highlights]);
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -55,6 +63,7 @@ function Highlights() {
               name="1"
               placeholder="1"
               onChange={handleChange}
+              value={highlightsData.textData?.[1] || ''}
             />
             <label
               htmlFor="1"
@@ -74,6 +83,7 @@ function Highlights() {
               name="2"
               placeholder="2"
               onChange={handleChange}
+              value={highlightsData.textData?.[2] || ''}
             />
             <label
               htmlFor="1"
@@ -93,6 +103,7 @@ function Highlights() {
               name="3"
               placeholder="3"
               onChange={handleChange}
+              value={highlightsData.textData?.[3] || ''}
             />
             <label
               htmlFor="3"

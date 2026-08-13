@@ -1,4 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import OrderBar from "./OrderBar";
 import { Typography } from "@material-tailwind/react";
 import Content from "./Content";
@@ -7,7 +9,33 @@ import play from "../images/play.svg";
 
 export default function PitchPage() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [startupData, setStartupData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const videoRef = useRef(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchStartupData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`http://localhost:8000/api/v1/startup/${id}`);
+        
+        if (response.data.success) {
+          setStartupData(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching startup data:", error);
+        setError("Failed to load startup data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchStartupData();
+    }
+  }, [id]);
 
   const handlePlayButtonClick = () => {
     setIsPlaying(true);
@@ -15,15 +43,48 @@ export default function PitchPage() {
       videoRef.current.play();
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-96">
+        <div className="text-lg">Loading startup data...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-96">
+        <div className="text-lg text-red-500">{error}</div>
+      </div>
+    );
+  }
+
+  if (!startupData) {
+    return (
+      <div className="flex justify-center items-center h-96">
+        <div className="text-lg">Startup not found</div>
+      </div>
+    );
+  }
+
+  // Extract data with fallbacks
+  const companyName = startupData.pitch?.basics?.companyname || "Company Name";
+  const tagline = startupData.pitch?.basics?.description || "Company Description";
+  const location = startupData.pitch?.basics?.address || "Location";
+  const website = startupData.pitch?.basics?.links?.website || "#";
+  const mainImage = startupData.pitch?.basics?.image || videotag;
+  const video = startupData.pitch?.basics?.video;
+  const highlights = startupData.pitch?.highlights || [];
   return (
     <div className="flex justify-center items-center">
       <div className=" flex flex-col justify-center items-center w-[80rem]">
         <div className="w-[78rem]">
           <h2 className="mt-[2rem] text-start text-[1.19rem] tracking-wider text-blue-gray-700 font-[600]">
-            CURTISS MOTORCYCLE CO.
+            {companyName.toUpperCase()}
           </h2>
           <h5 className="mt-[0.7rem] text-start text-[1.862rem] text-gray-900 font-[600] tracking-wide">
-            American Motorcycle Luxury
+            {tagline}
           </h5>
         </div>
         <div className=" w-[78rem] h-auto mt-[1.7rem] flex flex-row justify-between items-start">
@@ -36,8 +97,8 @@ export default function PitchPage() {
                       className="w-full h-full"
                     >
                       <img
-                        src={videotag}
-                        alt=""
+                        src={mainImage}
+                        alt={companyName}
                         className={`w-[54.2rem] object-cover  z-10`}
                         style={{ opacity: isPlaying ? 0 : 1 }}
                       />
@@ -56,10 +117,12 @@ export default function PitchPage() {
                 )}
                 <div className="w-[54.2rem] h-auto absolute">
                   <video className="w-full h-auto" controls ref={videoRef}>
-                    <source
-                      src="https://res.cloudinary.com/dmfyjaagg/video/upload/v1719557651/d98bvvn3fce6c7i9ce6s.mp4"
-                      type="video/mp4"
-                    />
+                    {video && (
+                      <source
+                        src={video}
+                        type="video/mp4"
+                      />
+                    )}
                     Your browser does not support the video tag.
                   </video>
                 </div>
@@ -69,10 +132,10 @@ export default function PitchPage() {
             <div className="flex justify-between items-center w-full mt-2 ml-1">
               <div className=" flex ">
                 <div className=" flex justify-center items-center text-[0.75rem] tracking-wide">
-                  <a href="/" className="p-2">
-                    curtissmotorcycles.com
+                  <a href={website} target="_blank" rel="noopener noreferrer" className="p-2 text-blue-600 hover:underline">
+                    {website !== '#' ? new URL(website).hostname : 'Website'}
                   </a>
-                  <p className=" p-2">Leeds, AL</p>
+                  <p className=" p-2">{location}</p>
                 </div>
                 <div className=" flex justify-center items-center">
                   <Typography
@@ -172,9 +235,9 @@ export default function PitchPage() {
                 <p className=" rounded-[5px] px-2 py-1">Clean Tech</p>
               </div>
             </div>
-            <Content />
+            <Content startupData={startupData} />
           </div>
-          <OrderBar />
+          <OrderBar startupData={startupData} />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Typography } from "@material-tailwind/react";
-import logo from "./images/png/venturelist-favicon-color.png";
+import logo from "../images/png/venturelist-favicon-color.png";
 
 const LINKS = [
   {
@@ -32,7 +32,11 @@ export default function Footer() {
                 VentureList is a Social Enterprise. We're here to connect
                 startups and investors.
               </h2>
-              <a href="https://my-portfolio-f937.onrender.com/" target="_blank" rel="noreferrer">
+              <a
+                href="https://my-portfolio-f937.onrender.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <button className="-ml-[3rem] mt-5 border-[1px] border-[#348bb7] w-[22rem] h-[3.5rem] rounded-[4px] text-[#348bb7] hover:text-[#23688a] text-[1.1rem] font-[500] tracking-widest">
                   Contact Developer
                 </button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import StartupCard from "../StartupCard";
+import StartupCard from "../../components/StartupCard";
 import axios from "axios";
 
 export default function Startupview() {
@@ -7,7 +7,8 @@ export default function Startupview() {
   const [children, setChildren] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/v1/startup/topfounders")
+    axios
+      .get("http://localhost:8000/api/v1/startup/topfounders")
       .then((response) => {
         setChildren(response.data.data);
       })
@@ -51,11 +52,10 @@ export default function Startupview() {
             style={{ transform: `translateX(-${curr * 100}%)` }}
             key={i}
           >
-            <StartupCard data={startup}  />
+            <StartupCard data={startup} />
           </div>
         ))}
       </div>
     </div>
   );
 }
-

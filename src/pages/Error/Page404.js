@@ -1,22 +1,22 @@
-import React, {useEffect} from "react";
-import Myvideo1 from "./images/not_found.webm";
-import Myvideo2 from "./images/not_found.mp4";
-import Myimage from "./images/not_found.png";
+import React, { useEffect } from "react";
+import Myvideo1 from "../../components/images/not_found.webm";
+import Myvideo2 from "../../components/images/not_found.mp4";
+import Myimage from "../../components/images/not_found.png";
 
 export default function Page404() {
-    useEffect(() => {
-        const currentElement = document.querySelector('.error-element');
-        if (currentElement) {
-          const previousSibling = currentElement.previousElementSibling;
-          if (previousSibling) {
-            previousSibling.style.backgroundColor = 'transparent';
-            previousSibling.style.color = '#9ca3af'
-            previousSibling.style.border='none'
-          } else {
-            console.log('No previous sibling found');
-          }
-        }
-      }, []);
+  useEffect(() => {
+    const currentElement = document.querySelector(".error-element");
+    if (currentElement) {
+      const previousSibling = currentElement.previousElementSibling;
+      if (previousSibling) {
+        previousSibling.style.backgroundColor = "transparent";
+        previousSibling.style.color = "#9ca3af";
+        previousSibling.style.border = "none";
+      } else {
+        console.log("No previous sibling found");
+      }
+    }
+  }, []);
 
   return (
     <div className="error-element fixed top-0 left-0 bg-black h-screen w-screen z-5">

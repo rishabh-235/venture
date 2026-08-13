@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import logo from "../images/Group_74318.png";
+import logo from "../../components/images/Group_74318.png";
 import axios from "axios";
-import FollowerCard from "./followerCard";
+import FollowingCard from "../../components/Portfolio/FollowingCard";
 
-export default function FollowersPage() {
+export default function Followingpage() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/user/getfollowers", {
+      .get("http://localhost:8000/api/v1/user/getfollowing", {
         withCredentials: true,
       })
       .then((response) => {
@@ -19,13 +19,12 @@ export default function FollowersPage() {
       });
   }, []);
 
-
   return (
     <div className="flex justify-center items-start w-[63rem] h-[60rem]">
-      {cards.length>0 ? (
+      {cards.length > 0 ? (
         <div>
           {cards.map((follower) => (
-            <FollowerCard key={follower.id} data={follower} />
+            <FollowingCard key={follower.id} data={follower} />
           ))}
         </div>
       ) : (

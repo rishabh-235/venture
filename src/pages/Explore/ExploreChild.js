@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Navegators from "./Navegators";
-import SignupInv from "../SignupInv";
+import Navegators from "../../components/Explore/Navegators";
+import SignupInv from "../../components/SignupInv";
 
 export default function Explore() {
   // Assuming 'auth' slice contains 'userData' which is null if user is not signed in
   const userData = useSelector((state) => state.auth.userData);
-  
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Navegators />
@@ -18,4 +18,3 @@ export default function Explore() {
     </div>
   );
 }
-

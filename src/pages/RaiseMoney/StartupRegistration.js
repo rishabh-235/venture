@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Drawer } from "@material-tailwind/react";
-import BgImg from "../images/substack_hero_card_en_sm.webp";
+import BgImg from "../../components/images/substack_hero_card_en_sm.webp";
 import axios from "axios";
 
 export default function StartupRegistration() {
@@ -10,8 +11,7 @@ export default function StartupRegistration() {
   const [category, setCategory] = useState(null);
 
   const openDrawerRight = (e) => {
-    if(drawerFormData.companyname === "")
-    {
+    if (drawerFormData.companyname === "") {
       setIsEmpty(true);
       return;
     }
@@ -25,7 +25,7 @@ export default function StartupRegistration() {
   };
   const [drawerFormData, setDrawerFormData] = useState({
     companyname: "",
-  }); 
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDrawerFormData((prevData) => ({
@@ -34,32 +34,33 @@ export default function StartupRegistration() {
     }));
   };
   const handleCategory = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setCategory(e?.currentTarget?.value);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let newData = {
       ...drawerFormData,
-      category
+      category,
     };
 
-    axios
-      .post("http://localhost:8000/api/v1/startup/register",newData, { withCredentials: true })
-      .then((response) => {
-        if (response.data.massage === "Startup Registred Succesfully") {
-          setIsVisible(true);
-        }
-      })
-      .catch((error) => {
-        console.log("Error sending data:", error);
-      });
-
-
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/startup/register", 
+        newData, 
+        { withCredentials: true }
+      );
+      
+      if (response.data.success || response.data.massage === "Startup Registred Succesfully") {
+        setIsVisible(true);
+      }
+    } catch (error) {
+      console.error("Error sending data:", error);
+      // TODO: Show error feedback to user
+    }
   };
-
 
   const theme = {
     drawer: {
@@ -108,7 +109,11 @@ export default function StartupRegistration() {
             in one line on your cap table.
           </div>
 
-          <div className={`flex justify-between w-[33vw] ml-10 rounded-lg border-2 ${isEmpty ? "border-red-500" : ""} px-2`}>
+          <div
+            className={`flex justify-between w-[33vw] ml-10 rounded-lg border-2 ${
+              isEmpty ? "border-red-500" : ""
+            } px-2`}
+          >
             <div className="relative overflow-hidden">
               <input
                 id="companyname"
@@ -138,7 +143,13 @@ export default function StartupRegistration() {
               Get Started
             </button>
           </div>
-          {isEmpty? <p className=" ml-12 mt-1 text-start text-[0.85rem] text-red-600" >what's Your Company Name</p>: ""}
+          {isEmpty ? (
+            <p className=" ml-12 mt-1 text-start text-[0.85rem] text-red-600">
+              what's Your Company Name
+            </p>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className=" w-[50vw]">
@@ -162,18 +173,24 @@ export default function StartupRegistration() {
               <span class="material-symbols-outlined">close</span>
             </button>
           </div>
-          <div className={`w-full mt-[5rem] flex flex-col justify-center items-center`}>
+          <div
+            className={`w-full mt-[5rem] flex flex-col justify-center items-center`}
+          >
             <h3 className="w-[19rem] text-pretty text-[1.9rem] mt-[9rem] font-[500] leading-[2.3rem] tracking-wide">
-            Nice to meet you,
-            Rishabh LLC!
+              Nice to meet you, Rishabh LLC!
             </h3>
             <h2 className="w-[26rem] mt-6 px-5 font-[500] text-gray-700 leading-[1.5rem] tracking-wide">
-            Now, you can complete your pitch and launch to your community.
+              Now, you can complete your pitch and launch to your community.
             </h2>
-            <button className=" mt-6 text-[0.95rem] rounded-[0.2rem] px-[0.95rem] py-[0.68rem] text-white font-[700] tracking-tight bg-[#0a76d1]">Complete my pitch</button>
+            <Link 
+              to="/register_startup/editpitch/basics" 
+              className=" mt-6 text-[0.95rem] rounded-[0.2rem] px-[0.95rem] py-[0.68rem] text-white font-[700] tracking-tight bg-[#0a76d1] inline-block text-center no-underline hover:bg-[#0968c4]"
+            >
+              Complete my pitch
+            </Link>
           </div>
         </Drawer>
-      ): (
+      ) : (
         <Drawer
           placement="right"
           open={openRight}
@@ -232,31 +249,71 @@ export default function StartupRegistration() {
               </label>
               <ul className=" grid grid-cols-2 md:grid-cols-3 gap-3 text-[1.1rem] font-[500]  border-gray-800 h-full tracking-wider">
                 <li>
-                  <button onClick={handleCategory} value="Technology" className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${category==="Technology"?"border-gray-600 text-gray-600":"text-gray-400"} hover:text-gray-600`}>
+                  <button
+                    onClick={handleCategory}
+                    value="Technology"
+                    className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${
+                      category === "Technology"
+                        ? "border-gray-600 text-gray-600"
+                        : "text-gray-400"
+                    } hover:text-gray-600`}
+                  >
                     <span class=" material-symbols-outlined">hub</span>
                     <span>Technology</span>
                   </button>
                 </li>
                 <li>
-                  <button onClick={handleCategory} value="Brick & Mortar" className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${category==="Brick & Mortar"?"border-gray-600 text-gray-600":"text-gray-400"} hover:text-gray-600`}>
+                  <button
+                    onClick={handleCategory}
+                    value="Brick & Mortar"
+                    className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${
+                      category === "Brick & Mortar"
+                        ? "border-gray-600 text-gray-600"
+                        : "text-gray-400"
+                    } hover:text-gray-600`}
+                  >
                     <span class="material-symbols-outlined">storefront</span>
                     <span>Brick & Mortar</span>
                   </button>
                 </li>
                 <li>
-                  <button onClick={handleCategory} value="Consumer & Goods" className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${category==="Consumer & Goods"?"border-gray-600 text-gray-600":"text-gray-400"} hover:text-gray-600`}>
+                  <button
+                    onClick={handleCategory}
+                    value="Consumer & Goods"
+                    className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${
+                      category === "Consumer & Goods"
+                        ? "border-gray-600 text-gray-600"
+                        : "text-gray-400"
+                    } hover:text-gray-600`}
+                  >
                     <span class="material-symbols-outlined">local_mall</span>
                     <span>Consumer & Goods</span>
                   </button>
                 </li>
                 <li>
-                  <button onClick={handleCategory} value="Science and R&D" className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${category==="Science and R&D"?"border-gray-600 text-gray-600":"text-gray-400"} hover:text-gray-600`}>
+                  <button
+                    onClick={handleCategory}
+                    value="Science and R&D"
+                    className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${
+                      category === "Science and R&D"
+                        ? "border-gray-600 text-gray-600"
+                        : "text-gray-400"
+                    } hover:text-gray-600`}
+                  >
                     <span class="material-symbols-outlined">experiment</span>
                     <span>Science and R&D</span>
                   </button>
                 </li>
                 <li>
-                  <button onClick={handleCategory} value="Entertainment" className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${category==="Entertainment"?"border-gray-600 text-gray-600":"text-gray-400"} hover:text-gray-600`}>
+                  <button
+                    onClick={handleCategory}
+                    value="Entertainment"
+                    className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${
+                      category === "Entertainment"
+                        ? "border-gray-600 text-gray-600"
+                        : "text-gray-400"
+                    } hover:text-gray-600`}
+                  >
                     <span class="material-symbols-outlined">
                       theater_comedy
                     </span>
@@ -264,7 +321,15 @@ export default function StartupRegistration() {
                   </button>
                 </li>
                 <li>
-                  <button onClick={handleCategory} value="Other" className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${category==="Other"?"border-gray-600 text-gray-600":"text-gray-400"} hover:text-gray-600`}>
+                  <button
+                    onClick={handleCategory}
+                    value="Other"
+                    className={`w-full flex flex-col justify-center items-center px-[0.9rem] py-[1rem] gap-1 text-[0.75rem] font-[400] border rounded-lg border-gray-300 hover:border-gray-600 ${
+                      category === "Other"
+                        ? "border-gray-600 text-gray-600"
+                        : "text-gray-400"
+                    } hover:text-gray-600`}
+                  >
                     <span class="material-symbols-outlined">rocket_launch</span>
                     <span>Other</span>
                   </button>

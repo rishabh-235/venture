@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../images/Group_1562wefunderCash.png";
+import logo from "../../components/images/Group_1562wefunderCash.png";
 
 export default function CashPage() {
   return (

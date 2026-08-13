@@ -2,51 +2,33 @@ import React from "react";
 import { TestimonialCard } from "./FeaturedInvestor";
 import profilelogo from "../images/IMG-20240329-WA0013.jpg";
 
-export default function Overview() {
+export default function Overview({ startupData }) {
+  // Extract highlights with fallback to default data
+  const highlights = startupData?.pitch?.highlights || [
+    "The Curtiss 1, our launch product, is scheduled for production in Q4.",
+    "The first year of production is pre-sold.",
+    "Curtiss has 130 proprietary sets of long lead time components in-house.",
+    "These 130 Curtiss 1 motorcycles are scheduled for delivery over the next 36 months."
+  ];
+
+  const pitchContent = startupData?.pitch?.pitch?.htmlData || 
+    "This is where the detailed pitch content would appear. The company's story, mission, and vision will be displayed here.";
   return (
     <div className=" mt-[3rem]">
       <div className=" w-[43rem] flex flex-col justify-center items-start">
         <h2 className=" text-[1.9rem] text-gray-900 font-[500] tracking-tight w-full text-start">
           Highlights
         </h2>
-        <div className=" flex justify-start items-center mt-8">
-          <div className="flex justify-center items-center font-[500] rounded-[40px] h-[2.5rem] w-[2.5rem] mr-[0.8rem] border-[1px] border-black">
-            1
+        {highlights.map((highlight, index) => (
+          <div key={index} className="flex justify-start items-center mt-8">
+            <div className="flex justify-center items-center font-[500] rounded-[40px] h-[2.5rem] w-[2.5rem] mr-[0.8rem] border-[1px] border-black">
+              {index + 1}
+            </div>
+            <p className="text-[0.95rem] text-gray-900 text-start tracking-wide font-[500]">
+              {highlight}
+            </p>
           </div>
-          <p className=" text-[0.95rem] text-gray-900 text-start tracking-wide font-[500]">
-            The Curtiss 1, our launch product, is scheduled for production in
-            Q4.
-          </p>
-        </div>
-
-        <div className=" flex justify-start items-center mt-8">
-          <div className="flex justify-center items-center font-[500] rounded-[40px] h-[2.5rem] w-[2.5rem] mr-[0.8rem] border-[1px] border-black">
-            2
-          </div>{" "}
-          <p className=" text-[0.95rem] text-gray-900 text-start tracking-wide font-[500]">
-            The first year of production is pre-sold.
-          </p>
-        </div>
-
-        <div className=" flex justify-start items-center mt-8">
-          <div className="flex justify-center items-center font-[500] rounded-[40px] h-[2.5rem] w-[2.5rem] mr-[0.8rem] border-[1px] border-black">
-            3
-          </div>{" "}
-          <p className=" text-[0.95rem] text-gray-900 text-start tracking-wide font-[500]">
-            Curtiss has 130 proprietary sets of long lead time components
-            in-house.
-          </p>
-        </div>
-
-        <div className=" flex justify-start items-center mt-8">
-          <div className="flex justify-center items-center font-[500] rounded-[40px] h-[2.5rem] w-[2.5rem] mr-[0.8rem] border-[1px] border-black">
-            4
-          </div>{" "}
-          <p className=" text-[0.95rem] text-gray-900 text-start tracking-wide font-[500]">
-            These 130 Curtiss 1 motorcycles are scheduled for delivery over the
-            next 36 months.
-          </p>
-        </div>
+        ))}
 
         <div className=" flex justify-start items-center mt-8">
           <div className="flex justify-center items-center font-[500] rounded-[40px] h-[2.5rem] w-[2.5rem] mr-[0.8rem] border-[1px] border-black">
@@ -87,6 +69,19 @@ export default function Overview() {
           </p>
         </div>
       </div>
+
+      {/* Pitch Content Section */}
+      {startupData?.pitch?.pitch?.pitch_title && (
+        <div className="mt-[4rem] w-[43rem] flex flex-col justify-center items-start">
+          <h2 className="text-[1.9rem] text-gray-900 font-[500] tracking-tight w-full text-start">
+            {startupData.pitch.pitch.pitch_title}
+          </h2>
+          <div 
+            className="mt-4 text-gray-700 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: pitchContent }}
+          />
+        </div>
+      )}
 
       <div className=" mt-[4rem] w-[43rem] flex flex-col justify-center items-start ">
         <h2 className="text-[2rem] text-gray-900 font-[600]  w-full text-start">

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import SearchBar from "./SearchBar";
-import logo512 from "./images/venturelist-high-resolution-logo-transparent.png";
-import logo from "./images/venturelist-favicon-color.png";
+import SearchBar from "../SearchBar";
+import logo512 from "../images/venturelist-high-resolution-logo-transparent.png";
+import logo from "../images/venturelist-favicon-color.png";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/slice/authSlice";
+import { logout } from "../../redux/slice/authSlice";
 import axios from "axios";
 
 export default function NavBar() {
@@ -21,9 +21,9 @@ export default function NavBar() {
     user = userData;
   }
 
-  useEffect(()=>{
-    if(user.isFounder)setRaiseMoneyLink("/register_startup/overview");
-  },[user.isFounder])
+  useEffect(() => {
+    if (user.isFounder) setRaiseMoneyLink("/register_startup/overview");
+  }, [user.isFounder]);
 
   const dispatch = useDispatch();
   const logoutHandler = () => {

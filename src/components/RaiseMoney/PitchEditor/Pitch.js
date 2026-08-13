@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
@@ -10,13 +10,22 @@ import "froala-editor/js/plugins/lists.min.js";
 import "froala-editor/js/plugins/fullscreen.min.js";
 import "froala-editor/js/plugins/font_size.min.js";
 import "froala-editor/js/plugins/font_family.min.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePitchData } from "../../../redux/slice/pitchDataSlice";
 
 export default function Pitch() {
+  const dispatch = useDispatch();
+  const pitchDataRedux = useSelector((state) => state.pitchData);
   const [model, setModel] = useState("");
-  const [pitchData, setPitchData] = useState({});
-  const dispatch = useDispatch({});
+  const [pitchData, setPitchData] = useState({ textData: {} });
+
+  // Load data from Redux when component mounts or when pitchData changes
+  useEffect(() => {
+    if (pitchDataRedux.pitch && pitchDataRedux.pitch.textData) {
+      setPitchData(pitchDataRedux.pitch);
+      setModel(pitchDataRedux.pitch.textData.htmldata || "");
+    }
+  }, [pitchDataRedux.pitch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -85,6 +94,7 @@ export default function Pitch() {
           placeholder="Pitch Title here..."
           type="text"
           name="pitch_title"
+          value={pitchData.textData?.pitch_title || ''}
           onChange={handleChange}
         />
       </div>

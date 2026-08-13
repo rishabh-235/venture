@@ -1,14 +1,22 @@
-import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePitchData } from "../../../redux/slice/pitchDataSlice";
 
 function Basic() {
   const dispatch = useDispatch();
+  const pitchData = useSelector((state) => state.pitchData);
   const imageInputRef = useRef(null);
   const videoInputRef = useRef(null);
   const logoInputRef = useRef(null);
   const otherInputRef = useRef(null);
-  const [BasicData, setBasicData] = useState({});
+  const [BasicData, setBasicData] = useState({ textData: {} });
+
+  // Load data from Redux when component mounts or when pitchData changes
+  useEffect(() => {
+    if (pitchData.basic && pitchData.basic.textData) {
+      setBasicData(pitchData.basic);
+    }
+  }, [pitchData.basic]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -37,27 +45,84 @@ function Basic() {
 };
 
 
+  const handleFileUpload = async (file, fileType) => {
+    try {
+      const formData = new FormData();
+      formData.append(fileType, file);
+
+      const response = await fetch('http://localhost:8000/api/v1/startup/upload', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const fileUrl = data.data.url;
+        
+        // Update local state and Redux
+        setBasicData(prevState => ({
+          ...prevState,
+          textData: {
+            ...prevState.textData,
+            [fileType]: fileUrl
+          }
+        }));
+
+        dispatch(updatePitchData({
+          pitchName: "basic",
+          data: {
+            textData: {
+              ...BasicData.textData,
+              [fileType]: fileUrl
+            }
+          }
+        }));
+      }
+    } catch (error) {
+      console.error('File upload error:', error);
+    }
+  };
+
   const handleEditImage = async (e) => {
     e.preventDefault();
-    await imageInputRef.current.click();
+    imageInputRef.current.click();
   };
 
   const handleEditVideo = async (e) => {
     e.preventDefault();
-    await videoInputRef.current.click();
-    console.log(e);
+    videoInputRef.current.click();
   };
 
   const handleEditLogo = async (e) => {
     e.preventDefault();
-    await logoInputRef.current.click();
-    console.log(e);
+    logoInputRef.current.click();
   };
 
   const handleEditOther = async (e) => {
     e.preventDefault();
-    await otherInputRef.current.click();
-    console.log(e);
+    otherInputRef.current.click();
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileUpload(file, 'image');
+    }
+  };
+
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileUpload(file, 'video');
+    }
+  };
+
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileUpload(file, 'logo');
+    }
   };
 
   return (
@@ -74,7 +139,7 @@ function Basic() {
             name="companyname"
             placeholder="Company Name"
             onChange={handleChange}
-            value={BasicData.companyname}
+            value={BasicData.textData?.companyname || ''}
           />
           <label
             htmlFor="Companyname"
@@ -92,7 +157,7 @@ function Basic() {
             name="tagline"
             placeholder="Tagline"
             onChange={handleChange}
-            value={BasicData.tagline}
+            value={BasicData.textData?.tagline || ''}
           />
           <label
             htmlFor="Tagline"
@@ -143,7 +208,7 @@ function Basic() {
               name="coverphoto"
               accept="image/*"
               className="hidden"
-              onChange={handleChange}
+              onChange={handleImageChange}
             />
           </div>
         </div>
@@ -189,7 +254,7 @@ function Basic() {
               name="video"
               accept="video/*"
               className="hidden"
-              onChange={handleChange}
+              onChange={handleVideoChange}
             />
           </div>
         </div>
@@ -365,7 +430,7 @@ function Basic() {
               name="logo"
               accept="image/*"
               className="hidden"
-              onChange={handleChange}
+              onChange={handleLogoChange}
             />
           </div>
         </div>
