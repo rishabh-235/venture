@@ -19,18 +19,18 @@ export default function Page404() {
   }, []);
 
   return (
-    <div className="error-element fixed top-0 left-0 bg-black h-screen w-screen z-5">
+    <div className="error-element relative bg-black min-h-screen w-full overflow-hidden">
       <video
-        className="fixed left-1/2 -translate-x-1/2 h-full min-h-screen w-full object-cover brightness-50"
+        className="absolute inset-0 w-full h-full object-cover brightness-50 z-0"
         poster={Myimage}
         autoPlay
         loop
         muted
       >
         <source src={Myvideo1} type="video/webm" />
-        <source src={Myvideo2} type="video/mpm" />
+        <source src={Myvideo2} type="video/mp4" />
       </video>
-      <div className="h-screen w-screen absolute top-1/4 left-0 space-y-4 text-center leading-[3.2rem]">
+      <div className="relative z-10 flex flex-col items-center justify-center py-20 space-y-4 text-center leading-[3.2rem] min-h-screen">
         <h1 className="block text-[3.1rem] text-white font-bold space-y-2 ">
           <span className="block">404</span>
           <span className="block">Hello? Can anyone hear me?</span>
