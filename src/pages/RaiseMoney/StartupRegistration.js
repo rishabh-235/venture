@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Drawer } from "@material-tailwind/react";
+import { useDispatch } from "react-redux";
 import BgImg from "../../components/images/substack_hero_card_en_sm.webp";
-import axios from "axios";
+import { registerStartup } from "../../redux/slice/startupSlice";
 
 export default function StartupRegistration() {
+  const dispatch = useDispatch();
   const [openRight, setOpenRight] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
@@ -47,18 +49,17 @@ export default function StartupRegistration() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/startup/register", 
-        newData, 
-        { withCredentials: true }
-      );
-      
-      if (response.data.success || response.data.massage === "Startup Registred Succesfully") {
+      const resultAction = await dispatch(registerStartup(newData));
+
+      if (
+        registerStartup.fulfilled.match(resultAction) &&
+        (resultAction.payload?.success ||
+          resultAction.payload?.massage === "Startup Registred Succesfully")
+      ) {
         setIsVisible(true);
       }
     } catch (error) {
       console.error("Error sending data:", error);
-      // TODO: Show error feedback to user
     }
   };
 
@@ -182,8 +183,8 @@ export default function StartupRegistration() {
             <h2 className="w-[26rem] mt-6 px-5 font-[500] text-gray-700 leading-[1.5rem] tracking-wide">
               Now, you can complete your pitch and launch to your community.
             </h2>
-            <Link 
-              to="/register_startup/editpitch/basics" 
+            <Link
+              to="/register_startup/editpitch/basics"
               className=" mt-6 text-[0.95rem] rounded-[0.2rem] px-[0.95rem] py-[0.68rem] text-white font-[700] tracking-tight bg-[#0a76d1] inline-block text-center no-underline hover:bg-[#0968c4]"
             >
               Complete my pitch

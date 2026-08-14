@@ -1,19 +1,22 @@
 import React, { useState, useRef } from "react";
 import { Collapse, Card, CardBody } from "@material-tailwind/react";
 import { uploadFileToCloudinary } from "../cloudinary";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePublicProfile } from "../../redux/slice/userSlice";
 
 export default function PublicProfile() {
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.userData);
   const user = React.useMemo(() => {
-    return userData || {
-      firstname: "Rishabh",
-      middlename: "",
-      lastname: "",
-      address: "Bhopal",
-      website:"ww.xyz.com",
-    };
+    return (
+      userData || {
+        firstname: "Rishabh",
+        middlename: "",
+        lastname: "",
+        address: "Bhopal",
+        website: "ww.xyz.com",
+      }
+    );
   }, [userData]);
   const interestsList = user?.interests || [];
   const [openSection, setOpenSection] = useState(null);
@@ -42,24 +45,21 @@ export default function PublicProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const interests = [...user.interests,...Array.from(list)];
+    const interests = [...user.interests, ...Array.from(list)];
 
     const newData = {
       ...formData,
       interests: interests,
     };
-    
+
     try {
       const formdata = await uploadFileToCloudinary(fileData, newData);
+      const resultAction = await dispatch(updatePublicProfile(formdata));
 
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/user/editprofile",
-        formdata,
-        { withCredentials: true }
-      );
-
-      if (response?.data?.data) {
-        // Navigate to the parent profile route
+      if (
+        updatePublicProfile.fulfilled.match(resultAction) &&
+        resultAction.payload?.data
+      ) {
         window.location.href = "http://localhost:3000/settings/public_profile";
       }
     } catch (error) {
@@ -90,7 +90,6 @@ export default function PublicProfile() {
       updatedOptions.delete(value);
       return updatedOptions;
     });
-
   };
 
   const toggleOpen = (section) => {
@@ -460,7 +459,9 @@ export default function PublicProfile() {
                     Website
                   </div>
                   <div className="flex">
-                    <p className="mr-2 text-[0.95rem] text-gray-600">{user.website}</p>
+                    <p className="mr-2 text-[0.95rem] text-gray-600">
+                      {user.website}
+                    </p>
                   </div>
                 </div>
               </button>
@@ -549,7 +550,8 @@ export default function PublicProfile() {
                     <label>
                       <p className=" mb-2">Tell founders about yourself</p>
                       <p className=" mb-6 text-[0.75rem] ">
-                      Your about section allows you to add more details about your journey as an investor
+                        Your about section allows you to add more details about
+                        your journey as an investor
                       </p>
                     </label>
                     <textarea
@@ -619,7 +621,7 @@ export default function PublicProfile() {
                         className="border border-gray-300 rounded-md text-[0.9rem] w-[24rem] h-[2.5rem] mb-3"
                         onChange={handlelist}
                       >
-                        <option disabled >Choose Your Interests</option>
+                        <option disabled>Choose Your Interests</option>
                         <option value="Bakeries">Bakeries</option>
                         <option value="Coffee">Coffee</option>
                         <option value="Discounts">Discounts</option>
@@ -734,7 +736,7 @@ export default function PublicProfile() {
                       </select>
 
                       <div className="flex flex-row flex-wrap justify-end gap-2">
-                        {[...interestsList,...list].map((item, idx) => (
+                        {[...interestsList, ...list].map((item, idx) => (
                           <button onClick={handleDeleteList}>
                             <div
                               key={idx}
@@ -757,9 +759,9 @@ export default function PublicProfile() {
                       CANCEL
                     </button>
                     <button
-                     className="flex justify-center text-white tracking-widest items-center w-[4.5rem] py-2 rounded-[0.2rem] bg-green-400"
-                     onClick={handleSubmit}
-                     >
+                      className="flex justify-center text-white tracking-widest items-center w-[4.5rem] py-2 rounded-[0.2rem] bg-green-400"
+                      onClick={handleSubmit}
+                    >
                       SAVE
                     </button>
                   </div>

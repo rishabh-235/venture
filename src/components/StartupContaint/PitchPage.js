@@ -1,41 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import OrderBar from "./OrderBar";
+import { fetchStartupById } from "../../redux/slice/startupSlice";
 import { Typography } from "@material-tailwind/react";
 import Content from "./Content";
 import videotag from "../images/xxl_blob.jpg";
 import play from "../images/play.svg";
 
 export default function PitchPage() {
+  const dispatch = useDispatch();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [startupData, setStartupData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const startupData = useSelector((state) => state.startup.startupDetail);
+  const loading = useSelector((state) => state.startup.loading);
+  const error = useSelector((state) => state.startup.error);
   const videoRef = useRef(null);
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchStartupData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`http://localhost:8000/api/v1/startup/${id}`);
-        
-        if (response.data.success) {
-          setStartupData(response.data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching startup data:", error);
-        setError("Failed to load startup data");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (id) {
-      fetchStartupData();
+      dispatch(fetchStartupById(id));
     }
-  }, [id]);
+  }, [dispatch, id]);
 
   const handlePlayButtonClick = () => {
     setIsPlaying(true);
@@ -70,7 +56,8 @@ export default function PitchPage() {
 
   // Extract data with fallbacks
   const companyName = startupData.pitch?.basics?.companyname || "Company Name";
-  const tagline = startupData.pitch?.basics?.description || "Company Description";
+  const tagline =
+    startupData.pitch?.basics?.description || "Company Description";
   const location = startupData.pitch?.basics?.address || "Location";
   const website = startupData.pitch?.basics?.links?.website || "#";
   const mainImage = startupData.pitch?.basics?.image || videotag;
@@ -93,9 +80,7 @@ export default function PitchPage() {
               <div className="h-[30rem] relative">
                 {!isPlaying && (
                   <div className="w-[54.2rem] h-[31rem] flex justify-center items-center absolute z-10">
-                    <div
-                      className="w-full h-full"
-                    >
+                    <div className="w-full h-full">
                       <img
                         src={mainImage}
                         alt={companyName}
@@ -117,12 +102,7 @@ export default function PitchPage() {
                 )}
                 <div className="w-[54.2rem] h-auto absolute">
                   <video className="w-full h-auto" controls ref={videoRef}>
-                    {video && (
-                      <source
-                        src={video}
-                        type="video/mp4"
-                      />
-                    )}
+                    {video && <source src={video} type="video/mp4" />}
                     Your browser does not support the video tag.
                   </video>
                 </div>
@@ -132,8 +112,13 @@ export default function PitchPage() {
             <div className="flex justify-between items-center w-full mt-2 ml-1">
               <div className=" flex ">
                 <div className=" flex justify-center items-center text-[0.75rem] tracking-wide">
-                  <a href={website} target="_blank" rel="noopener noreferrer" className="p-2 text-blue-600 hover:underline">
-                    {website !== '#' ? new URL(website).hostname : 'Website'}
+                  <a
+                    href={website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-blue-600 hover:underline"
+                  >
+                    {website !== "#" ? new URL(website).hostname : "Website"}
                   </a>
                   <p className=" p-2">{location}</p>
                 </div>

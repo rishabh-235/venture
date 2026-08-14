@@ -3,8 +3,7 @@ import SearchBar from "../SearchBar";
 import logo512 from "../images/venturelist-high-resolution-logo-transparent.png";
 import logo from "../images/venturelist-favicon-color.png";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../redux/slice/authSlice";
-import axios from "axios";
+import { logoutUserThunk } from "../../redux/slice/authSlice";
 
 export default function NavBar() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -27,18 +26,7 @@ export default function NavBar() {
 
   const dispatch = useDispatch();
   const logoutHandler = () => {
-    axios
-      .get("http://localhost:8000/api/v1/user/logout", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(logout());
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(logoutUserThunk());
   };
 
   return (

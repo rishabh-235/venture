@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login as authLogin } from "../../redux/slice/authSlice";
-import { loginUser } from "../../utils/api";
+import { loginUserThunk } from "../../redux/slice/authSlice";
 import SocialLoginButtons from "../../components/ui/SocialLoginButtons";
 import AuthForm from "../../components/ui/AuthForm";
 
@@ -62,16 +61,18 @@ const LoginPage = () => {
     setErrors({});
 
     try {
-      const response = await loginUser(formData);
+      const resultAction = await dispatch(loginUserThunk(formData));
 
-      if (response.data.message === "User Logged In successfully") {
-        dispatch(authLogin(response.data.data.loggedInUser));
+      if (loginUserThunk.fulfilled.match(resultAction)) {
         setIsLoggedIn(true);
+      } else {
+        setErrors({
+          password: resultAction.payload || "Login failed. Please try again.",
+        });
       }
     } catch (error) {
       setErrors({
-        password:
-          error.response?.data?.message || "Login failed. Please try again.",
+        password: "Login failed. Please try again.",
       });
     } finally {
       setIsLoading(false);

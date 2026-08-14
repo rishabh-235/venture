@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardHeader } from "@material-tailwind/react";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { registerInvestorThunk } from "../../redux/slice/investorSlice";
 
 export default function Registerinvestor() {
   const [formData, setformData] = useState({});
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.auth.userData);
   let accessToken;
@@ -32,15 +33,17 @@ export default function Registerinvestor() {
       accessToken: accessToken,
     };
 
-    axios.post("http://localhost:8000/api/v1/investor/register", newData, {withCredentials: true })
-      .then((response) => {
-        if (response.data.massage === "Investor Registered Successfully") {
-          navigate(`/profile/${response.data.data.user?.fullname || ''}`);
-        }
-      })
-      .catch((error) => {
-        console.log("Error sending data:", error);
-      });
+    try {
+      const resultAction = await dispatch(registerInvestorThunk(newData));
+
+      if (registerInvestorThunk.fulfilled.match(resultAction)) {
+        navigate(
+          `/profile/${resultAction.payload?.data?.user?.fullname || ""}`,
+        );
+      }
+    } catch (error) {
+      console.log("Error sending data:", error);
+    }
 
     setformData({});
   };

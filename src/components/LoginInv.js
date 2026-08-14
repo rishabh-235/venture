@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login as authLogin } from "../redux/slice/authSlice";
+import { loginUserThunk } from "../redux/slice/authSlice";
 
 const LoginInv = () => {
   const dispatch = useDispatch();
@@ -19,28 +18,29 @@ const LoginInv = () => {
     else if (name === "password") setPassword(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = { email, password };
-    axios
-      .post("http://localhost:8000/api/v1/user/login", formData, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data.massage === "User Logged In successfully") {
-          setEmail("");
-          setPassword("");
-          setBorderColor("gray-300");
-          setPasswordError("");
-          setUser(true);
-          dispatch(authLogin(response.data.data.loggedInUser));
-        }
-      })
-      .catch((error) => {
+
+    try {
+      const resultAction = await dispatch(loginUserThunk(formData));
+
+      if (loginUserThunk.fulfilled.match(resultAction)) {
+        setEmail("");
+        setPassword("");
+        setBorderColor("gray-300");
+        setPasswordError("");
+        setUser(true);
+      } else {
         setPassword("");
         setBorderColor("red-600");
-        setPasswordError("Password is Incorrect");
-      });
+        setPasswordError(resultAction.payload || "Password is Incorrect");
+      }
+    } catch (error) {
+      setPassword("");
+      setBorderColor("red-600");
+      setPasswordError("Password is Incorrect");
+    }
   };
 
   const handleLogin = (provider) => {
@@ -101,7 +101,7 @@ const LoginInv = () => {
               onClick={() => this.handleLogin("github")}
             >
               <svg
-              class="-ml-[4rem] mr-[0.5rem] material-symbols-outlined"
+                class="-ml-[4rem] mr-[0.5rem] material-symbols-outlined"
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"

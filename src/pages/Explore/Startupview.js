@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import StartupCard from "../../components/StartupCard";
-import axios from "axios";
+import { fetchTopFounders } from "../../redux/slice/startupSlice";
 
 export default function Startupview() {
+  const dispatch = useDispatch();
   const [curr, setCurr] = useState(0);
-  const [children, setChildren] = useState([]);
+  const children = useSelector((state) => state.startup.topFounders);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/v1/startup/topfounders")
-      .then((response) => {
-        setChildren(response.data.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching data:", error);
-      });
-  }, []); // Empty dependency array to run effect only once after the initial render
+    dispatch(fetchTopFounders());
+  }, [dispatch]);
 
   const prev = () => {
     setCurr((prevCurr) =>
-      prevCurr === 0 ? children.length - 1 : prevCurr - 1
+      prevCurr === 0 ? children.length - 1 : prevCurr - 1,
     );
   };
 
   const next = () => {
     setCurr((prevCurr) =>
-      prevCurr === children.length - 1 ? 0 : prevCurr + 1
+      prevCurr === children.length - 1 ? 0 : prevCurr + 1,
     );
   };
 

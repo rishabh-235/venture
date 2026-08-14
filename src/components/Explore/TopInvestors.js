@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import InvestorCard from "./InvestorCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTopInvestors } from "../../redux/slice/investorSlice";
 
 export default function TopInvestors() {
-  const [cards, setCards] = useState([]);
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.userData);
+  const cards = useSelector((state) => state.investor.topInvestors);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/v1/investor/topinvestors")
-      .then((response) => {
-        setCards(response.data.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching data:", error);
-      });
-  }, []);
+    dispatch(fetchTopInvestors());
+  }, [dispatch]);
 
-  const filteredCards = cards.filter((card) => card.user._id !== userData?._id);
+  const filteredCards = cards.filter(
+    (card) => card.user?._id !== userData?._id,
+  );
 
   return (
     <div>

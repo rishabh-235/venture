@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import checkAuthStatus from "../redux/checkAuth.js";
+import { registerUserThunk, checkAuthStatus } from "../redux/slice/authSlice";
 
 const SignupInv = () => {
   const [fullname, setFullname] = useState("");
@@ -21,30 +20,27 @@ const SignupInv = () => {
     if (name === "password") setPassword(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = { fullname, email, password };
 
-    axios
-      .post("http://localhost:8000/api/v1/user/register", formData, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data) {
-          setFullname("");
-          setEmail("");
-          setPassword("");
-          navigate("/"); // Redirect to the landing page
-          checkAuthStatus(dispatch);
-        } else {
-          setPassword("");
-          setBordercolor("red-600");
-          setEmailerror("Email Already Existed");
-        }
-      })
-      .catch((error) => {
-        console.error("Error sending data:", error);
-      });
+    try {
+      const resultAction = await dispatch(registerUserThunk(formData));
+
+      if (registerUserThunk.fulfilled.match(resultAction)) {
+        setFullname("");
+        setEmail("");
+        setPassword("");
+        navigate("/");
+        dispatch(checkAuthStatus());
+      } else {
+        setPassword("");
+        setBordercolor("red-600");
+        setEmailerror(resultAction.payload || "Email Already Existed");
+      }
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
   };
 
   const handleLogin = (provider) => {
@@ -106,7 +102,7 @@ const SignupInv = () => {
               onClick={() => handleLogin("github")}
             >
               <svg
-              className="-ml-[4rem] mr-[0.5rem] material-symbols-outlined"
+                className="-ml-[4rem] mr-[0.5rem] material-symbols-outlined"
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"

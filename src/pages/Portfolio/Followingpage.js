@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../../components/images/Group_74318.png";
-import axios from "axios";
 import FollowingCard from "../../components/Portfolio/FollowingCard";
+import { fetchFollowing } from "../../redux/slice/userSlice";
 
 export default function Followingpage() {
-  const [cards, setCards] = useState([]);
+  const dispatch = useDispatch();
+  const cards = useSelector((state) => state.user.following);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/v1/user/getfollowing", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setCards(response.data.data || []);
-      })
-      .catch((error) => {
-        console.log("Error fetching data:", error);
-      });
-  }, []);
+    dispatch(fetchFollowing());
+  }, [dispatch]);
 
   return (
     <div className="flex justify-center items-start w-[63rem] h-[60rem]">

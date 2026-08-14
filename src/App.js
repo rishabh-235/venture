@@ -79,7 +79,7 @@ function App() {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        await checkAuthStatus(dispatch);
+        await dispatch(checkAuthStatus());
       } catch (error) {
         console.error("Auth initialization error:", error);
       } finally {

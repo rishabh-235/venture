@@ -1,11 +1,14 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Card, CardBody, Collapse } from "@material-tailwind/react";
 import kiwilogo from "../images/icons8-kiwi-bird-30.png";
-import axios from "axios";
-
-
+import {
+  createInvestmentOrder,
+  fetchPaymentKey,
+} from "../../redux/slice/startupSlice";
 
 export default function OrderBar() {
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState();
@@ -14,56 +17,60 @@ export default function OrderBar() {
 
   const handleInputChange = (event) => {
     setAmount(event.target.value);
-  }
-
-  const checkoutHandler = async (amount) => {
-    let order=await axios.post("http://localhost:8000/api/v1/payment/buyShares",{
-      amount
-    });
-
-    const {data} = await axios.get("http://localhost:8000/api/v1/payment/getkey")
-    const key = data.data.key
-
-      
-    var options = {
-      key,
-      amount: order.data.data.amount, 
-      currency: "INR",
-      name: "VentureList",
-      description: "Test Transaction",
-      image: "https://res.cloudinary.com/dmfyjaagg/image/upload/f_auto,q_auto/mksiow3oi5natrhk0cr4",
-      order_id: order.data.data.id, 
-      callback_url: "http://localhost:8000/api/v1/payment/paymentverification",
-      prefill: {
-          name: "Gaurav Kumar",
-          email: "gaurav.kumar@example.com",
-          contact: "9000090000"
-      },
-      notes: {
-          address: "Razorpay Corporate Office"
-      },
-      theme: {
-          "color": "#2DB6FB"
-      }
   };
 
-  const razor = new window.Razorpay(options);
-  razor.open();
-  }
+  const checkoutHandler = async (amount) => {
+    try {
+      const orderAction = await dispatch(createInvestmentOrder(amount));
+      const keyAction = await dispatch(fetchPaymentKey());
+
+      if (
+        createInvestmentOrder.fulfilled.match(orderAction) &&
+        fetchPaymentKey.fulfilled.match(keyAction)
+      ) {
+        const key = keyAction.payload;
+        const order = orderAction.payload;
+
+        var options = {
+          key,
+          amount: order.amount,
+          currency: "INR",
+          name: "VentureList",
+          description: "Test Transaction",
+          image:
+            "https://res.cloudinary.com/dmfyjaagg/image/upload/f_auto,q_auto/mksiow3oi5natrhk0cr4",
+          order_id: order.id,
+          callback_url:
+            "http://localhost:8000/api/v1/payment/paymentverification",
+          prefill: {
+            name: "Gaurav Kumar",
+            email: "gaurav.kumar@example.com",
+            contact: "9000090000",
+          },
+          notes: {
+            address: "Razorpay Corporate Office",
+          },
+          theme: {
+            color: "#2DB6FB",
+          },
+        };
+
+        const razor = new window.Razorpay(options);
+        razor.open();
+      }
+    } catch (error) {
+      console.error("Payment order failed:", error);
+    }
+  };
 
   return (
-
     <div className="w-[20.8rem] shadow-lg border-x-[1.3px] rounded-md sticky top-0">
       <div className="px-4 pt-4 pb-2">
         <Card className="shadow-none">
           <CardBody className=" -m-[1.4rem]">
             <div className=" mb-3 flex flex-col">
               <div className="flex justify-start items-center text-orange-500">
-                <img
-                  src={kiwilogo}
-                  className="h-[1rem] w-[1rem] mr-2"
-                  alt=""
-                />
+                <img src={kiwilogo} className="h-[1rem] w-[1rem] mr-2" alt="" />
                 <p className="text-[0.78rem] font-[600] tracking-wide mr-1">
                   EARLY BIRD TERMS: $30,426 LEFT
                 </p>
@@ -199,8 +206,12 @@ export default function OrderBar() {
               <span className="material-symbols-outlined text-[0.8rem] mr-[0.18rem] text-black">
                 redeem
               </span>
-              <span className="font-[600] text-black text-[0.78rem] w-[9.8rem]">Investor Perks:</span>
-              <span className="text-[0.7rem]">₹18.8K, ₹37.5K, ₹75L Cr, ₹750L Cr, ₹1875L Cr</span>
+              <span className="font-[600] text-black text-[0.78rem] w-[9.8rem]">
+                Investor Perks:
+              </span>
+              <span className="text-[0.7rem]">
+                ₹18.8K, ₹37.5K, ₹75L Cr, ₹750L Cr, ₹1875L Cr
+              </span>
             </p>
           </div>
         </button>
@@ -211,7 +222,10 @@ export default function OrderBar() {
               shares in the company. If you invest, you're betting the company
               will be worth more than ₹48.0Cr eventually.
             </p>
-            <a href="/" className="text-[0.83rem] text-gray-700 font-[500] tracking-wide mt-4 underline hover:text-light-blue-800">
+            <a
+              href="/"
+              className="text-[0.83rem] text-gray-700 font-[500] tracking-wide mt-4 underline hover:text-light-blue-800"
+            >
               Learn more about SAFEs
             </a>
           </div>

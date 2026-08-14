@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Avatar } from "@material-tailwind/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toggleFollowUser } from "../../redux/slice/userSlice";
 
 export default function InvestorCard(props) {
   const { data } = props;
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.userData);
   const navigate = useNavigate();
   const [isFollowing, setIsFollowing] = useState(false);
@@ -32,15 +33,16 @@ export default function InvestorCard(props) {
     };
 
     try {
-      const endpoint = isFollowing ? "unfollow" : "follow";
-      const response = await axios.post(`http://localhost:8000/api/v1/user/${endpoint}`, formData, { withCredentials: true });
+      const resultAction = await dispatch(
+        toggleFollowUser({ userId: data.user._id, isFollowing }),
+      );
 
-      if (response.data) {
+      if (toggleFollowUser.fulfilled.match(resultAction)) {
         setIsFollowing(!isFollowing);
         setText(isFollowing ? "Follow" : "Following");
       }
     } catch (error) {
-      console.error("Error fetching data:", error.response ? error.response.data : error.message);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -48,7 +50,10 @@ export default function InvestorCard(props) {
     <div className="w-[24rem] h-[29rem] border-[1px] border-gray-100 rounded-lg p-4 mb-5 hover:shadow-md hover:border-gray-200">
       <div className="flex flex-col items-center justify-start mb-10">
         <Avatar
-          src={data.user.avatar || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmd8dYkAzHCoT6wxxEVks7qknjiBnM1PpVN1-MfcBvw3r9p3eZ72s-BiffL4IHFynRHc4&usqp=CAU"}
+          src={
+            data.user.avatar ||
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmd8dYkAzHCoT6wxxEVks7qknjiBnM1PpVN1-MfcBvw3r9p3eZ72s-BiffL4IHFynRHc4&usqp=CAU"
+          }
           alt="avatar"
           className="w-[6rem] h-[6rem] border-[1px] border-gray-300 rounded-[6rem]"
         />
@@ -66,7 +71,7 @@ export default function InvestorCard(props) {
 
       <button
         onClick={handleSubmit}
-        className={`w-full h-[2.8rem] text-white rounded-md mt-16 ${isFollowing ? 'bg-light-blue-600' : 'bg-black'}`}
+        className={`w-full h-[2.8rem] text-white rounded-md mt-16 ${isFollowing ? "bg-light-blue-600" : "bg-black"}`}
       >
         {text}
       </button>

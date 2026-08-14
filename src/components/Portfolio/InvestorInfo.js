@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Collapse, Card, CardBody } from "@material-tailwind/react";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { useCountries } from "use-react-countries";
+import { updateInvestorProfile } from "../../redux/slice/userSlice";
 import Datepicker from "react-tailwindcss-datepicker";
 
 export default function InvestorInfo() {
+  const dispatch = useDispatch();
   let user = {
     legalfirstname: "",
     legallastname: "",
@@ -35,7 +36,7 @@ export default function InvestorInfo() {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-    if(!name)name = e.target.selectedOptions[0].getAttribute('name');
+    if (!name) name = e.target.selectedOptions[0].getAttribute("name");
     setformData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -47,18 +48,18 @@ export default function InvestorInfo() {
 
     let newData = {
       ...formData,
-      dob: value.startDate
-    }
+      dob: value.startDate,
+    };
 
     try {
-      // const response = {};
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/investor/updateinvestor",
-        newData,
-        { withCredentials: true }
-      );
-      
-      if (response?.data?.massage === "Account details update successfully" || response?.data?.massage === "Investor Registred Succesfully") {
+      const resultAction = await dispatch(updateInvestorProfile(newData));
+
+      if (
+        updateInvestorProfile.fulfilled.match(resultAction) &&
+        (resultAction.payload?.massage ===
+          "Account details update successfully" ||
+          resultAction.payload?.massage === "Investor Registred Succesfully")
+      ) {
         window.location.reload();
       }
     } catch (error) {
@@ -94,9 +95,11 @@ export default function InvestorInfo() {
                   </div>
                   <div className="flex">
                     <p className="mr-2 text-[0.95rem] text-gray-600">
-                      {(user.legalfirstname ||
-                        "" )+ " " + (user.legalmiddlename ||
-                        "" )+ " " + (user.legallastname || "")}
+                      {(user.legalfirstname || "") +
+                        " " +
+                        (user.legalmiddlename || "") +
+                        " " +
+                        (user.legallastname || "")}
                     </p>
                   </div>
                 </div>
@@ -313,9 +316,9 @@ export default function InvestorInfo() {
                       onChange={handleChange}
                       className="border border-gray-300 rounded-md  w-[22rem] h-[2.5rem] mb-3"
                     >
-                      {countries.map(({ name },index) => (
+                      {countries.map(({ name }, index) => (
                         <option
-                          key = {index}
+                          key={index}
                           name="nationality"
                           value={name}
                           className="flex items-center"
@@ -409,7 +412,10 @@ export default function InvestorInfo() {
                     <button className="flex justify-center tracking-widest items-center w-[5.5rem] py-2">
                       CANCEL
                     </button>
-                    <button onClick={handleSubmit} className="flex justify-center text-white tracking-widest items-center w-[4.5rem] py-2 rounded-[0.2rem] bg-green-400">
+                    <button
+                      onClick={handleSubmit}
+                      className="flex justify-center text-white tracking-widest items-center w-[4.5rem] py-2 rounded-[0.2rem] bg-green-400"
+                    >
                       SAVE
                     </button>
                   </div>

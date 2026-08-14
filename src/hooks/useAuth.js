@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { login, logout } from "../redux/slice/authSlice";
-import { getCurrentUser, logoutUser } from "../utils/api";
+import {
+  checkAuthStatus,
+  logoutUserThunk,
+  login,
+} from "../redux/slice/authSlice";
 
 const useAuth = () => {
   const dispatch = useDispatch();
@@ -10,12 +13,11 @@ const useAuth = () => {
 
   // Check authentication status on mount
   useEffect(() => {
-    const checkAuthStatus = async () => {
+    const verifyAuth = async () => {
       try {
         const token = localStorage.getItem("token");
         if (token) {
-          const response = await getCurrentUser();
-          dispatch(login(response.data.data));
+          await dispatch(checkAuthStatus());
         }
       } catch (error) {
         console.error("Auth check failed:", error);
@@ -25,7 +27,7 @@ const useAuth = () => {
       }
     };
 
-    checkAuthStatus();
+    verifyAuth();
   }, [dispatch]);
 
   const handleLogin = (user, token) => {
@@ -37,7 +39,7 @@ const useAuth = () => {
 
   const handleLogout = async () => {
     try {
-      await logoutUser();
+      await dispatch(logoutUserThunk());
     } catch (error) {
       console.error("Logout error:", error);
     } finally {

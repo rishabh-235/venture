@@ -6,9 +6,11 @@ import {
   ThemeProvider,
 } from "@material-tailwind/react";
 import { Radio } from "@material-tailwind/react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { updateInvestorProfile } from "../../redux/slice/userSlice";
 
 export default function InvestorLimits() {
+  const dispatch = useDispatch();
   const [openSection, setOpenSection] = useState(null);
   const [value, setValue] = useState(0);
   const [netWorth, setNetWorth] = useState(0);
@@ -73,23 +75,20 @@ export default function InvestorLimits() {
     e.preventDefault();
 
     let newData = {
-      networth:netWorth,
-      annualincome:value,
-      accreditedinvestor:selectedOption
+      networth: netWorth,
+      annualincome: value,
+      accreditedinvestor: selectedOption,
     };
     console.log(newData);
 
     try {
-      // const response = {};
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/investor/updateinvestor",
-        newData,
-        { withCredentials: true }
-      );
+      const resultAction = await dispatch(updateInvestorProfile(newData));
 
       if (
-        response?.data?.massage === "Account details update successfully" ||
-        response?.data?.massage === "Investor Registred Succesfully"
+        updateInvestorProfile.fulfilled.match(resultAction) &&
+        (resultAction.payload?.massage ===
+          "Account details update successfully" ||
+          resultAction.payload?.massage === "Investor Registred Succesfully")
       ) {
         window.location.reload();
       }
