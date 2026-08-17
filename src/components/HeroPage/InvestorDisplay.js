@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import BgImg from "../images/substack_hero_card_en_sm.webp";
+import BgImg from "../images/substack_hero_card_en_sm.png";
 import { Card, CardBody, Button } from "@material-tailwind/react";
-import logo1 from "../images/Lcarousel_img/a16z-logo-gray.webp";
-import logo2 from "../images/yc-logo.webp";
+import logo1 from "../images/Lcarousel_img/a16z-logo-gray.png";
+import logo2 from "../images/yc-logo.png";
 
 export default class InvestorDisplay extends Component {
   render() {

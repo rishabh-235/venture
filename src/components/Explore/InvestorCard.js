@@ -27,11 +27,6 @@ export default function InvestorCard(props) {
       return;
     }
 
-    const formData = {
-      user_id: data.user._id,
-      accessToken: userData.accessToken,
-    };
-
     try {
       const resultAction = await dispatch(
         toggleFollowUser({ userId: data.user._id, isFollowing }),

@@ -62,7 +62,6 @@ export default function PitchPage() {
   const website = startupData.pitch?.basics?.links?.website || "#";
   const mainImage = startupData.pitch?.basics?.image || videotag;
   const video = startupData.pitch?.basics?.video;
-  const highlights = startupData.pitch?.highlights || [];
   return (
     <div className="flex justify-center items-center">
       <div className=" flex flex-col justify-center items-center w-[80rem]">

@@ -19,10 +19,6 @@ export default function FollowerCard(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = {
-      user_id: follower._id,
-    };
-
     try {
       const resultAction = await dispatch(
         toggleFollowUser({ userId: follower._id, isFollowing }),
