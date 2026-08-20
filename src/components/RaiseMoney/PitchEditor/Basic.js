@@ -23,26 +23,26 @@ function Basic() {
     const { name, type, value } = e.target;
 
     setBasicData((prevState) => ({
-        ...prevState,
-        textData: {
-            ...prevState.textData,
-            ...(type !== "file" && { [name]: value })
-        },
+      ...prevState,
+      textData: {
+        ...prevState.textData,
+        ...(type !== "file" && { [name]: value })
+      },
     }));
 
 
     dispatch(
-        updatePitchData({
-            pitchName: "basic",
-            data: {
-                textData: {
-                    ...BasicData.textData,
+      updatePitchData({
+        pitchName: "basic",
+        data: {
+          textData: {
+            ...BasicData.textData,
                     ...(type !== "file" && { [name]: value })
-                },
+        },
             }
         })
     );
-};
+  };
 
 
   const handleFileUpload = async (file, fileType) => {
@@ -50,7 +50,8 @@ function Basic() {
       const formData = new FormData();
       formData.append(fileType, file);
 
-      const response = await fetch('http://localhost:8000/api/v1/startup/upload', {
+      const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1";
+      const response = await fetch(`${apiBaseUrl}/startup/upload`, {
         method: 'POST',
         body: formData,
         credentials: 'include'
@@ -59,7 +60,7 @@ function Basic() {
       if (response.ok) {
         const data = await response.json();
         const fileUrl = data.data.url;
-        
+
         // Update local state and Redux
         setBasicData(prevState => ({
           ...prevState,
@@ -70,10 +71,10 @@ function Basic() {
         }));
 
         dispatch(updatePitchData({
-          pitchName: "basic",
-          data: {
-            textData: {
-              ...BasicData.textData,
+            pitchName: "basic",
+            data: {
+              textData: {
+                ...BasicData.textData,
               [fileType]: fileUrl
             }
           }

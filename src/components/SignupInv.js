@@ -44,7 +44,8 @@ const SignupInv = () => {
   };
 
   const handleLogin = (provider) => {
-    window.location.href = `http://localhost:8000/auth/${provider}`;
+    const authBaseUrl = process.env.REACT_APP_AUTH_BASE_URL || "http://localhost:8000";
+    window.location.href = `${authBaseUrl}/auth/${provider}`;
   };
 
   return (

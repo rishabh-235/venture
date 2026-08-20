@@ -81,7 +81,7 @@ const LoginPage = () => {
 
   const handleSocialLogin = (provider) => {
     window.location.href = `${
-      process.env.REACT_APP_API_BASE_URL || "http://localhost:8000"
+      process.env.REACT_APP_AUTH_BASE_URL || "http://localhost:8000"
     }/auth/${provider}`;
   };
 

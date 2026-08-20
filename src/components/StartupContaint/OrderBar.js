@@ -40,8 +40,9 @@ export default function OrderBar() {
           image:
             "https://res.cloudinary.com/dmfyjaagg/image/upload/f_auto,q_auto/mksiow3oi5natrhk0cr4",
           order_id: order.id,
-          callback_url:
-            "http://localhost:8000/api/v1/payment/paymentverification",
+          callback_url: `${
+            process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1"
+          }/payment/paymentverification`,
           prefill: {
             name: "Gaurav Kumar",
             email: "gaurav.kumar@example.com",
