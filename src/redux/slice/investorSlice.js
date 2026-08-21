@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_ENDPOINTS } from "../../constants/constants";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1";
 
@@ -13,7 +14,9 @@ export const fetchTopInvestors = createAsyncThunk(
   "investor/fetchTopInvestors",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/investor/topinvestors`);
+      const response = await axios.get(
+        `${API_BASE_URL}${API_ENDPOINTS.INVESTOR.TOP_INVESTORS}`,
+      );
       return response.data?.data || [];
     } catch (error) {
       return rejectWithValue(
@@ -28,7 +31,7 @@ export const registerInvestorThunk = createAsyncThunk(
   async (investorData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/investor/register`,
+        `${API_BASE_URL}${API_ENDPOINTS.INVESTOR.REGISTER}`,
         investorData,
         { withCredentials: true },
       );

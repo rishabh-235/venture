@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_ENDPOINTS } from "../../constants/constants";
 
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1";
@@ -15,9 +16,10 @@ export const fetchFollowers = createAsyncThunk(
   "user/fetchFollowers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/user/getfollowers`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${API_BASE_URL}${API_ENDPOINTS.USER.GET_FOLLOWERS}`,
+        { withCredentials: true },
+      );
       return response.data?.data || [];
     } catch (error) {
       return rejectWithValue(
@@ -31,9 +33,10 @@ export const fetchFollowing = createAsyncThunk(
   "user/fetchFollowing",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/user/getfollowing`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${API_BASE_URL}${API_ENDPOINTS.USER.GET_FOLLOWING}`,
+        { withCredentials: true },
+      );
       return response.data?.data || [];
     } catch (error) {
       return rejectWithValue(
@@ -47,9 +50,11 @@ export const toggleFollowUser = createAsyncThunk(
   "user/toggleFollowUser",
   async ({ userId, isFollowing }, { rejectWithValue }) => {
     try {
-      const endpoint = isFollowing ? "unfollow" : "follow";
+      const endpoint = isFollowing
+        ? API_ENDPOINTS.USER.UNFOLLOW
+        : API_ENDPOINTS.USER.FOLLOW;
       const response = await axios.post(
-        `${API_BASE_URL}/user/${endpoint}`,
+        `${API_BASE_URL}${endpoint}`,
         { user_id: userId },
         { withCredentials: true },
       );
@@ -67,7 +72,7 @@ export const updateInvestorProfile = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/investor/updateinvestor`,
+        `${API_BASE_URL}${API_ENDPOINTS.INVESTOR.UPDATE_INVESTOR}`,
         payload,
         { withCredentials: true },
       );
@@ -85,7 +90,7 @@ export const updatePublicProfile = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/user/editprofile`,
+        `${API_BASE_URL}${API_ENDPOINTS.USER.EDIT_PROFILE}`,
         payload,
         { withCredentials: true },
       );

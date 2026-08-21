@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_ENDPOINTS, API_MESSAGES } from "../../constants/constants";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1";
 
@@ -15,12 +16,12 @@ export const loginUserThunk = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/user/login`,
+        `${API_BASE_URL}${API_ENDPOINTS.AUTH.LOGIN}`,
         formData,
         { withCredentials: true },
       );
 
-      if (response.data?.massage === "User Logged In successfully") {
+      if (response.data?.massage === API_MESSAGES.LOGIN_SUCCESS) {
         return response.data.data.loggedInUser;
       }
 
@@ -40,7 +41,7 @@ export const registerUserThunk = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/user/register`,
+        `${API_BASE_URL}${API_ENDPOINTS.AUTH.REGISTER}`,
         formData,
         { withCredentials: true },
       );
@@ -65,7 +66,9 @@ export const logoutUserThunk = createAsyncThunk(
   "auth/logoutUser",
   async (_, { rejectWithValue }) => {
     try {
-      await axios.get(`${API_BASE_URL}/user/logout`, { withCredentials: true });
+      await axios.get(`${API_BASE_URL}${API_ENDPOINTS.AUTH.LOGOUT}`, {
+        withCredentials: true,
+      });
       return true;
     } catch (error) {
       return rejectWithValue(
@@ -79,9 +82,10 @@ export const checkAuthStatus = createAsyncThunk(
   "auth/checkAuthStatus",
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/user/verifyToken`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${API_BASE_URL}${API_ENDPOINTS.AUTH.VERIFY_TOKEN}`,
+        { withCredentials: true },
+      );
 
       if (response.status === 200 && response.data?.data) {
         return response.data.data;
@@ -92,7 +96,7 @@ export const checkAuthStatus = createAsyncThunk(
       if (error.response?.status === 401) {
         try {
           const refreshResponse = await axios.post(
-            `${API_BASE_URL}/user/refreshToken`,
+            `${API_BASE_URL}${API_ENDPOINTS.AUTH.REFRESH_TOKEN}`,
             {},
             { withCredentials: true },
           );

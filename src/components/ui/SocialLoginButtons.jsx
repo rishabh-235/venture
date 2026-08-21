@@ -1,9 +1,10 @@
 import React from "react";
+import { SOCIAL_PROVIDERS } from "../../constants/constants";
 
 const SocialLoginButtons = ({ onSocialLogin }) => {
   const socialProviders = [
     {
-      name: "google",
+      name: SOCIAL_PROVIDERS.GOOGLE,
       label: "Continue with Google",
       icon: (
         <svg className="w-5 h-5" viewBox="0 0 48 48">
@@ -27,7 +28,7 @@ const SocialLoginButtons = ({ onSocialLogin }) => {
       ),
     },
     {
-      name: "github",
+      name: SOCIAL_PROVIDERS.GITHUB,
       label: "Continue with GitHub",
       icon: (
         <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -36,7 +37,7 @@ const SocialLoginButtons = ({ onSocialLogin }) => {
       ),
     },
     {
-      name: "linkedin",
+      name: SOCIAL_PROVIDERS.LINKEDIN,
       label: "Continue with LinkedIn",
       icon: (
         <svg className="w-5 h-5" viewBox="0 0 48 48">
