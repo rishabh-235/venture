@@ -3,6 +3,7 @@ import SearchBar from "../SearchBar";
 import logo512 from "../images/venturelist-high-resolution-logo-transparent.png";
 import logo from "../images/venturelist-favicon-color.png";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { logoutUserThunk } from "../../redux/slice/authSlice";
 
 export default function NavBar() {
@@ -25,8 +26,13 @@ export default function NavBar() {
   }, [user.isFounder]);
 
   const dispatch = useDispatch();
-  const logoutHandler = () => {
-    dispatch(logoutUserThunk());
+  const navigate = useNavigate();
+  const logoutHandler = async () => {
+    try {
+      await dispatch(logoutUserThunk()).unwrap();
+    } finally {
+      navigate("/");
+    }
   };
 
   return (
@@ -339,15 +345,16 @@ export default function NavBar() {
                           </li>
 
                           <li>
-                            <button onClick={logoutHandler} className=" flex ">
-                              <a className="flex px-2 py-2" href="/">
-                                <span className="material-symbols-outlined text-gray-500 mr-2">
-                                  door_open
-                                </span>
-                                <span className="flex items-center hover:border-b hover:border-gray-700">
-                                  Log Out
-                                </span>
-                              </a>
+                            <button
+                              onClick={logoutHandler}
+                              className="flex px-2 py-2 w-full text-left"
+                            >
+                              <span className="material-symbols-outlined text-gray-500 mr-2">
+                                door_open
+                              </span>
+                              <span className="flex items-center hover:border-b hover:border-gray-700">
+                                Log Out
+                              </span>
                             </button>
                           </li>
                         </ul>

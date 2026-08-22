@@ -187,6 +187,8 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(logoutUserThunk.rejected, (state, action) => {
+        state.status = false;
+        state.userData = null;
         state.loading = false;
         state.error = action.payload || "Logout failed";
       })
