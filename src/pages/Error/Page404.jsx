@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Myvideo1 from "../../components/images/not_found.webm";
-import Myvideo2 from "../../components/images/not_found.mp4";
-import Myimage from "../../components/images/not_found.png";
+import Myimage from "../../components/images/not_found_poster.jpg";
 
 export default function Page404() {
   useEffect(() => {
@@ -28,7 +27,6 @@ export default function Page404() {
         muted
       >
         <source src={Myvideo1} type="video/webm" />
-        <source src={Myvideo2} type="video/mp4" />
       </video>
       <div className="relative z-10 flex flex-col items-center justify-center py-20 space-y-4 text-center leading-[3.2rem] min-h-screen">
         <h1 className="block text-[3.1rem] text-white font-bold space-y-2 ">
