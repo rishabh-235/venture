@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import moment from "moment/moment";
+import dayjs from "dayjs";
 
 export default function Profile() {
   const userData = useSelector((state) => state.auth.userData);
@@ -43,7 +43,7 @@ export default function Profile() {
               <span>{user.address || "Not Given"}</span>
             </div>
             <div className=" w-full text-start text-[0.9rem] font-[500] text-gray-400 mt-4">
-              Joined {moment(user.updatedAt).format('MMMM YYYY')}
+              Joined {dayjs(user.updatedAt).format('MMMM YYYY')}
             </div>
           </div>
           <div className=" w-full text-start mt-3 text-light-blue-700 font-[600]">
