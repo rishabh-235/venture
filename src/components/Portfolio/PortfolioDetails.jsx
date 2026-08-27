@@ -61,7 +61,7 @@ export default function PortfolioDetails() {
       </div>
       <div className="flex flex-col justify-start items-center mt-[10rem] h-[44rem]">
         <div className="flex flex-col justify-center items-center w-[18rem]">
-          <img src={log} alt="" className=" h-[10rem] w-[10rem]  mt-[3rem]" />
+          <img src={log} alt="" width="160" height="160" loading="lazy" className=" h-[10rem] w-[10rem]  mt-[3rem]" />
           <p className=" text-[1.5rem] font-[500] text-gray-500">
             Build your portfolio and start investing!
           </p>

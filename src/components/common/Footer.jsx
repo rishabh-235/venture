@@ -26,14 +26,14 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-7xl px-8">
         <div className="h-[15rem] grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <div variant="h5" className="flex mb-6">
-            <img src={logo} alt="logo" className=" h-[7rem] w-[7rem]" />
+            <img src={logo} alt="logo" width="112" height="112" loading="lazy" className=" h-[7rem] w-[7rem]" />
             <div>
               <h2 className=" font-[600] ml-4 text-start mt-2 leading-7 tracking-wider">
                 VentureList is a Social Enterprise. We're here to connect
                 startups and investors.
               </h2>
               <a
-                href="https://my-portfolio-f937.onrender.com/"
+                href="https://rishabh-gupta-235.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
               >

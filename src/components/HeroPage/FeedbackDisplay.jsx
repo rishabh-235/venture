@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Mycarousel from "../carsousel/DisCarousel";
-import avat from "../images/feedback_avatar.jpg";
+import avat from "../images/feedback_avatar.webp";
 
 const data = [
   {
@@ -41,6 +41,9 @@ export default class FeedbackDisplay extends Component {
                     <img
                       src={avat}
                       alt="avatar"
+                      width="53"
+                      height="53"
+                      loading="lazy"
                       className=" mr-3  w-[3.3rem] h-[3.3rem] mt-1 rounded-full"
                     />
                     <div className=" text-[0.9rem] text-start font-[500] leading-[1.2rem]">
@@ -76,6 +79,9 @@ export default class FeedbackDisplay extends Component {
                     <img
                       src={avat}
                       alt="avatar"
+                      width="53"
+                      height="53"
+                      loading="lazy"
                       className=" mr-3  w-[3.3rem] h-[3.3rem] mt-1 rounded-full"
                     />
                     <div className=" text-[0.9rem] text-start font-[500] leading-[1.2rem]">

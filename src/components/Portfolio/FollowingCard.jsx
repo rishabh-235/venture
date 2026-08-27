@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFollowUser } from "../../redux/slice/userSlice";
+import { optimizeCloudinaryUrl } from "../cloudinary";
 
 export default function FollowingCard(props) {
   const following = props.data;
@@ -42,9 +43,12 @@ export default function FollowingCard(props) {
         <div>
           <img
             src={
-              following.avatar ||
+              optimizeCloudinaryUrl(following.avatar, { width: 72, height: 72 }) ||
               "https://img.icons8.com/cotton/100/gender-neutral-user--v3.png"
             }
+            width="72"
+            height="72"
+            loading="lazy"
             className="w-[4.5rem] h-[4.5rem] rounded-[5rem] border mr-5"
             alt="logo"
           />

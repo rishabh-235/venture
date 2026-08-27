@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import BgImg from "../images/substack_hero_card_en_sm.png";
+import BgImg from "../images/substack_hero_card_en_sm.webp";
 import { Card, CardBody, Button } from "@material-tailwind/react";
-import logo1 from "../images/Lcarousel_img/a16z-logo-gray.png";
-import logo2 from "../images/yc-logo.png";
+import logo1 from "../images/Lcarousel_img/a16z-logo-gray.webp";
+import logo2 from "../images/yc-logo.webp";
 
 export default class InvestorDisplay extends Component {
   render() {
@@ -45,13 +45,13 @@ export default class InvestorDisplay extends Component {
                   </p>
                   <div className="flex mt-5 flex-col justify-center items-center">
                     <div className="w-[25vw] flex justify-start items-center h-[5vw] transition ease-in-out delay-150  hover:-translate-y-1.5 hover:translate-x-1.5 hover:scale-110  duration-300 ... border rounded-lg">
-                      <img src={logo1} alt="" className=" ml-5 h-6 mr-6" />{" "}
+                      <img src={logo1} alt="" loading="lazy" className=" ml-5 h-6 mr-6 aspect-[156/72]" />{" "}
                       <span className="text-[18px] font-[500]">
                         Andreessen Horowitz
                       </span>
                     </div>
                     <div className="w-[25vw] h-[5vw] flex justify-start items-center mt-6 transition-all translate-y-0 translate-x-0  hover:-translate-y-1.5 hover:translate-x-1.5 hover:scale-110  duration-300 ... border rounded-lg">
-                      <img src={logo2} alt="" className="ml-5 h-12 mr-6" />{" "}
+                      <img src={logo2} alt="" loading="lazy" className="ml-5 h-12 mr-6 aspect-square" />{" "}
                       <span className="text-[18px] font-[500]">
                         Y Combinator
                       </span>

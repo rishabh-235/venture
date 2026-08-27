@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
+import { optimizeCloudinaryUrl } from "./cloudinary";
 
 const StartupCard = ({ data }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -19,9 +20,12 @@ const StartupCard = ({ data }) => {
           <img
             className="h-full w-full object-cover transition-transform duration-500"
             src={
-              data?.image ||
+              optimizeCloudinaryUrl(data?.image, { width: 288, height: 336 }) ||
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBrl6V9_Ro0CxnHXNSHX_jQGqqyqjECDQQoA&s"
             }
+            width="288"
+            height="336"
+            loading="lazy"
             alt=""
           />
         </div>
@@ -31,9 +35,12 @@ const StartupCard = ({ data }) => {
               <img
                 className="float-end -mt-6 mr-5 h-12 w-12 rounded-3xl border-2"
                 src={
-                  data?.img ||
+                  optimizeCloudinaryUrl(data?.img, { width: 48, height: 48 }) ||
                   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6LX_7RF19Rf44bQqFk5McASddDErMnHBX-Q&s"
                 }
+                width="48"
+                height="48"
+                loading="lazy"
                 alt=""
               />
             </div>

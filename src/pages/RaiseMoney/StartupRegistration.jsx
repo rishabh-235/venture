@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Drawer } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
-import BgImg from "../../components/images/substack_hero_card_en_sm.png";
+import BgImg from "../../components/images/substack_hero_card_en_sm.webp";
 import { registerStartup } from "../../redux/slice/startupSlice";
 
 export default function StartupRegistration() {

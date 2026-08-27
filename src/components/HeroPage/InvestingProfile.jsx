@@ -6,7 +6,7 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
-import img from "../images/Red Bay Coffee Is About Community.jpeg"
+import img from "../images/Red Bay Coffee Is About Community.webp"
 
 export default class InvestingProfile extends Component {
   render() {
@@ -181,6 +181,9 @@ export default class InvestingProfile extends Component {
                 <img
                   src={img}
                   alt="ui/ux review check"
+                  width="736"
+                  height="1104"
+                  loading="lazy"
                 />
               </CardHeader>
 

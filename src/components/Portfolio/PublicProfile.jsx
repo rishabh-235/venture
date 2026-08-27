@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Collapse, Card, CardBody } from "@material-tailwind/react";
-import { uploadFileToCloudinary } from "../cloudinary";
+import { uploadFileToCloudinary, optimizeCloudinaryUrl } from "../cloudinary";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePublicProfile } from "../../redux/slice/userSlice";
 
@@ -782,7 +782,9 @@ export default function PublicProfile() {
           >
             <img
               className="flex justify-center items-center w-[9rem] h-[9rem] bg-gray-100 rounded-[9rem]"
-              src={avatar}
+              src={optimizeCloudinaryUrl(avatar, { width: 144, height: 144 })}
+              width="144"
+              height="144"
               alt="avatar"
             />
           </button>

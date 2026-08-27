@@ -1,6 +1,6 @@
 import React from "react";
 import { TestimonialCard } from "./FeaturedInvestor";
-import profilelogo from "../images/IMG-20240329-WA0013.jpg";
+import profilelogo from "../images/IMG-20240329-WA0013.webp";
 
 export default function Overview({ startupData }) {
   // Extract highlights with fallback to default data
@@ -109,6 +109,9 @@ export default function Overview({ startupData }) {
             <img
               src={profilelogo}
               alt=""
+              width="96"
+              height="96"
+              loading="lazy"
               className=" w-[6rem] h-[6rem] rounded-[40rem]"
             />
           </div>

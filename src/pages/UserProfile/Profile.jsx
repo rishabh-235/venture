@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
+import { optimizeCloudinaryUrl } from "../../components/cloudinary";
 
 export default function Profile() {
   const userData = useSelector((state) => state.auth.userData);
@@ -23,8 +24,13 @@ export default function Profile() {
         <div className="w-[20rem]">
           <div className=" flex flex-col justify-around items-center w-full h-[15rem] border-2 rounded-xl">
             <img
-              src={user.avatar || "https://img.icons8.com/pastel-glyph/64/person-male--v2.png"}
+              src={
+                optimizeCloudinaryUrl(user.avatar, { width: 112, height: 112 }) ||
+                "https://img.icons8.com/pastel-glyph/64/person-male--v2.png"
+              }
               alt="avatar"
+              width="112"
+              height="112"
               className=" w-[7rem] h-[7rem] rounded-[12rem]"
             />
             <div className=" text-[1.4rem] text-gray-800 font-[600]">
@@ -36,6 +42,7 @@ export default function Profile() {
               <img
                 width="25"
                 height="25"
+                loading="lazy"
                 src="https://img.icons8.com/ios/50/marker--v1.png"
                 alt="marker--v1"
                 className=" mr-3"

@@ -80,7 +80,7 @@ export default function OrderBar() {
           <CardBody className=" -m-[1.4rem]">
             <div className=" mb-3 flex flex-col">
               <div className="flex justify-start items-center text-orange-500">
-                <img src={kiwilogo} className="h-[1rem] w-[1rem] mr-2" alt="" />
+                <img src={kiwilogo} width="16" height="16" loading="lazy" className="h-[1rem] w-[1rem] mr-2" alt="" />
                 <p className="text-[0.78rem] font-[600] tracking-wide mr-1">
                   EARLY BIRD TERMS: $30,426 LEFT
                 </p>

@@ -1,3 +1,23 @@
+// Rewrites a Cloudinary delivery URL to request an auto-formatted (WebP/AVIF),
+// auto-compressed, resized version instead of shipping the full-resolution original.
+export const optimizeCloudinaryUrl = (url, { width, height, crop = "limit" } = {}) => {
+  if (
+    !url ||
+    typeof url !== "string" ||
+    !url.includes("cloudinary.com") ||
+    !url.includes("/upload/")
+  ) {
+    return url;
+  }
+
+  const transforms = ["f_auto", "q_auto"];
+  if (width) transforms.push(`w_${width}`);
+  if (height) transforms.push(`h_${height}`);
+  if (width || height) transforms.push(`c_${crop}`);
+
+  return url.replace("/upload/", `/upload/${transforms.join(",")}/`);
+};
+
 export const uploadFileToCloudinary = async (files, data) => {
   const fileUrl = [];
   const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;

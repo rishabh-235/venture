@@ -13,22 +13,22 @@ import ReadyToFunding from "./ReadyToFunding";
 import FeedbackDisplay from "./FeedbackDisplay";
 import Lcards from "../Lcards";
 import { CircularArray } from "../../utils/dataStructures";
-import img1 from "../images/Lcarousel_img/adfontesmedia-card.png";
-import img2 from "../images/Lcarousel_img/curlmix-card.png";
-import img3 from "../images/Lcarousel_img/doorvest-card.png";
-import img4 from "../images/Lcarousel_img/levels-card.png";
-import img5 from "../images/Lcarousel_img/mercury-card.png";
-import img6 from "../images/Lcarousel_img/replit-card.png";
-import img7 from "../images/Lcarousel_img/substack-card.png";
-import img8 from "../images/Lcarousel_img/synthesis-card.png";
-import img9 from "../images/Lcarousel_img/wedio-card.png";
-import logo1 from "../images/Lcarousel_img/gaingels-logo-gray.png";
-import logo2 from "../images/Lcarousel_img/backstage-capital-logo-gray.png";
-import logo3 from "../images/Lcarousel_img/m13-logo-gray.png";
-import logo4 from "../images/Lcarousel_img/a16z-logo-gray.png";
-import logo5 from "../images/Lcarousel_img/yc-logo-gray.png";
-import logo6 from "../images/Lcarousel_img/fj-labs-logo-gray.png";
-import logo7 from "../images/Lcarousel_img/founderment-logo-gray.png";
+import img1 from "../images/Lcarousel_img/adfontesmedia-card.webp";
+import img2 from "../images/Lcarousel_img/curlmix-card.webp";
+import img3 from "../images/Lcarousel_img/doorvest-card.webp";
+import img4 from "../images/Lcarousel_img/levels-card.webp";
+import img5 from "../images/Lcarousel_img/mercury-card.webp";
+import img6 from "../images/Lcarousel_img/replit-card.webp";
+import img7 from "../images/Lcarousel_img/substack-card.webp";
+import img8 from "../images/Lcarousel_img/synthesis-card.webp";
+import img9 from "../images/Lcarousel_img/wedio-card.webp";
+import logo1 from "../images/Lcarousel_img/gaingels-logo-gray.webp";
+import logo2 from "../images/Lcarousel_img/backstage-capital-logo-gray.webp";
+import logo3 from "../images/Lcarousel_img/m13-logo-gray.webp";
+import logo4 from "../images/Lcarousel_img/a16z-logo-gray.webp";
+import logo5 from "../images/Lcarousel_img/yc-logo-gray.webp";
+import logo6 from "../images/Lcarousel_img/fj-labs-logo-gray.webp";
+import logo7 from "../images/Lcarousel_img/founderment-logo-gray.webp";
 
 const LandingPage = () => {
   // Create a CircularArray to manage the props for CardDefault

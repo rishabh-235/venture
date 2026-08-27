@@ -44,6 +44,8 @@ export default function NavBar() {
             <img
               src={logo512}
               alt="logo"
+              width="167"
+              height="40"
               className=" h-10 rounded-2xl hover:bg-gray-200"
             />
           </div>
@@ -51,6 +53,8 @@ export default function NavBar() {
             <img
               src={logo}
               alt="logo"
+              width="48"
+              height="48"
               className=" w-12 h-auto rounded-2xl hover:bg-gray-200"
             />
           </div>
@@ -224,6 +228,7 @@ export default function NavBar() {
                                 <img
                                   width="18"
                                   height="18"
+                                  loading="lazy"
                                   src="https://img.icons8.com/metro/26/7950F2/diamond.png"
                                   alt="diamond"
                                 />

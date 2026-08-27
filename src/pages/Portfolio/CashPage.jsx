@@ -5,7 +5,7 @@ export default function CashPage() {
   return (
     <div className="flex flex-col justify-start items-center mt-[3rem] w-[63rem] h-[35rem]">
       <div className="flex flex-col justify-center items-center mt-[2rem] w-[18rem] h-[29rem]">
-        <img src={logo} alt="logo" className="w-[12rem] h-[12rem]" />
+        <img src={logo} alt="logo" width="192" height="192" loading="lazy" className="w-[12rem] h-[12rem]" />
         <p className="flex px-[1rem] text-[1.6rem] font-[500] text-gray-500 leading-[2rem]">
           You don't have any Wefunder Cash yet
         </p>

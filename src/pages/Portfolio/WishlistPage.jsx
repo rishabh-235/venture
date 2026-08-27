@@ -8,6 +8,9 @@ export default function WishlistPage() {
         <img
           src={logo}
           alt="logo"
+          width="160"
+          height="112"
+          loading="lazy"
           className="mt-[2.5rem] mb-[2rem] w-[10rem] h-[7rem]"
         />
         <p className="flex px-[1rem] text-[1.6rem] font-[500] text-gray-500 leading-[2rem]">

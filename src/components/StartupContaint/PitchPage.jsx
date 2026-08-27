@@ -5,8 +5,9 @@ import OrderBar from "./OrderBar";
 import { fetchStartupById } from "../../redux/slice/startupSlice";
 import { Typography } from "@material-tailwind/react";
 import Content from "./Content";
-import videotag from "../images/xxl_blob.jpg";
+import videotag from "../images/xxl_blob.webp";
 import play from "../images/play.svg";
+import { optimizeCloudinaryUrl } from "../cloudinary";
 
 export default function PitchPage() {
   const dispatch = useDispatch();
@@ -81,8 +82,10 @@ export default function PitchPage() {
                   <div className="w-[54.2rem] h-[31rem] flex justify-center items-center absolute z-10">
                     <div className="w-full h-full">
                       <img
-                        src={mainImage}
+                        src={optimizeCloudinaryUrl(mainImage, { width: 868 })}
                         alt={companyName}
+                        width="868"
+                        height="496"
                         className={`w-[54.2rem] object-cover  z-10`}
                         style={{ opacity: isPlaying ? 0 : 1 }}
                       />
@@ -94,6 +97,8 @@ export default function PitchPage() {
                       <img
                         src={play}
                         alt="Play"
+                        width="140"
+                        height="140"
                         className="transition-opacity duration-300 ease-in-out"
                       />
                     </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import img from "../../images/user_default_icon_circle.png";
+import img from "../../images/user_default_icon_circle.webp";
 import { Collapse, Card, CardBody } from "@material-tailwind/react";
 
 function TeamCard() {
@@ -15,6 +15,9 @@ function TeamCard() {
           <div>
             <img
               src={img}
+              width="64"
+              height="64"
+              loading="lazy"
               className=" w-[4rem] h-[4rem] outline-1 outline-dashed rounded-[4rem]"
               alt="img"
             />
@@ -108,7 +111,7 @@ function TeamCard() {
                     htmlFor="linkedin"
                     className="flex absolute top-[1.2rem] text-gray-500 font-[500] text-[0.8rem] ml-2"
                   >
-                    <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/linkedin.png" alt="linkedin"/>
+                    <img width="25" height="25" loading="lazy" src="https://img.icons8.com/ios-filled/50/linkedin.png" alt="linkedin"/>
                   </label>
                 </div>
                 
@@ -125,7 +128,7 @@ function TeamCard() {
                     htmlFor="x"
                     className="flex absolute top-[1.2rem] text-gray-500 font-[500] text-[0.8rem] ml-2"
                   >
-                    <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/twitterx--v1.png" alt="twitterx--v1"/>
+                    <img width="25" height="25" loading="lazy" src="https://img.icons8.com/ios-filled/50/twitterx--v1.png" alt="twitterx--v1"/>
                   </label>
                 </div>
               </CardBody>

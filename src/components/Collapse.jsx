@@ -12,10 +12,10 @@ export default function CollapseDefault() {
         onClick={toggleOpen}
         className=" flex justify-between items-center h-[5rem] w-[40rem] text-[1.3rem] font-[500] text-gray-600"
       >
-        Any tips for a first-time investor on Wefunder?
+        Any tips for a first-time investor on VentureList?
         <span className="material-symbols-outlined">expand_more</span>
       </button>
-      <Collapse open={open}>
+      <Collapse open={open} className="!basis-auto">
         <Card className=" mx-auto w-8/12">
           <CardBody>
             <ol className="list-decimal">
