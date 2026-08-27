@@ -12,14 +12,16 @@ import { transformStartupToRedux } from "../../utils/pitchDataTransforms";
 
 export default function PitchEdit() {
   const dispatch = useDispatch();
-  const pitchData = useSelector((state) => state.pitchData);
+  const isDataLoaded = useSelector((state) => state.pitchData.isDataLoaded);
+  const pitchDataLoading = useSelector((state) => state.pitchData.loading);
+  const pitchDataError = useSelector((state) => state.pitchData.error);
   const [saveStatus, setSaveStatus] = useState("");
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   // Load existing startup data on component mount
   useEffect(() => {
     const loadExistingData = async () => {
-      if (!pitchData.isDataLoaded && isInitialLoad) {
+      if (!isDataLoaded && isInitialLoad) {
         dispatch(setLoading(true));
         try {
           const resultAction = await dispatch(fetchMyStartup());
@@ -41,14 +43,14 @@ export default function PitchEdit() {
     };
 
     loadExistingData();
-  }, [dispatch, pitchData.isDataLoaded, isInitialLoad]);
+  }, [dispatch, isDataLoaded, isInitialLoad]);
 
   const pitchDataSubmission = async () => {
     setSaveStatus("saving");
     dispatch(clearError());
 
     try {
-      const resultAction = await dispatch(savePitchData(pitchData));
+      const resultAction = await dispatch(savePitchData());
 
       if (savePitchData.fulfilled.match(resultAction)) {
         setSaveStatus("saved");
@@ -259,13 +261,13 @@ export default function PitchEdit() {
                   ? "Error!"
                   : "Save Changes"}
           </button>
-          {pitchData.loading && (
+          {pitchDataLoading && (
             <div className="text-sm text-gray-500 mt-1">
               Loading existing data...
             </div>
           )}
-          {pitchData.error && (
-            <div className="text-sm text-red-500 mt-1">{pitchData.error}</div>
+          {pitchDataError && (
+            <div className="text-sm text-red-500 mt-1">{pitchDataError}</div>
           )}
         </div>
       </div>

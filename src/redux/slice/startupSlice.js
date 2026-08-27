@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../../utils/api";
 import { API_ENDPOINTS } from "../../constants/constants";
-
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1";
 
 const initialState = {
   myStartup: null,
@@ -17,10 +15,9 @@ export const registerStartup = createAsyncThunk(
   "startup/registerStartup",
   async (startupData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}${API_ENDPOINTS.STARTUP.REGISTER}`,
+      const response = await api.post(
+        API_ENDPOINTS.STARTUP.REGISTER,
         startupData,
-        { withCredentials: true },
       );
 
       return response.data;
@@ -36,10 +33,7 @@ export const fetchMyStartup = createAsyncThunk(
   "startup/fetchMyStartup",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}${API_ENDPOINTS.STARTUP.MY_STARTUP}`,
-        { withCredentials: true },
-      );
+      const response = await api.get(API_ENDPOINTS.STARTUP.MY_STARTUP);
 
       return response.data?.data || null;
     } catch (error) {
@@ -55,12 +49,12 @@ export const fetchMyStartup = createAsyncThunk(
 
 export const savePitchData = createAsyncThunk(
   "startup/savePitchData",
-  async (pitchData, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}${API_ENDPOINTS.STARTUP.EDIT_PITCH}`,
+      const { pitchData } = getState();
+      const response = await api.post(
+        API_ENDPOINTS.STARTUP.EDIT_PITCH,
         pitchData,
-        { withCredentials: true },
       );
       return response.data;
     } catch (error) {
@@ -75,9 +69,7 @@ export const fetchStartupById = createAsyncThunk(
   "startup/fetchStartupById",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}${API_ENDPOINTS.STARTUP.GET_BY_ID(id)}`,
-      );
+      const response = await api.get(API_ENDPOINTS.STARTUP.GET_BY_ID(id));
       return response.data?.data || null;
     } catch (error) {
       return rejectWithValue(
@@ -91,9 +83,7 @@ export const fetchTopFounders = createAsyncThunk(
   "startup/fetchTopFounders",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}${API_ENDPOINTS.STARTUP.TOP_FOUNDERS}`,
-      );
+      const response = await api.get(API_ENDPOINTS.STARTUP.TOP_FOUNDERS);
       return response.data?.data || [];
     } catch (error) {
       return rejectWithValue(
@@ -107,11 +97,9 @@ export const createInvestmentOrder = createAsyncThunk(
   "startup/createInvestmentOrder",
   async (amount, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}${API_ENDPOINTS.PAYMENT.BUY_SHARES}`,
-        { amount },
-        { withCredentials: true },
-      );
+      const response = await api.post(API_ENDPOINTS.PAYMENT.BUY_SHARES, {
+        amount,
+      });
       return response.data?.data || null;
     } catch (error) {
       return rejectWithValue(
@@ -125,9 +113,7 @@ export const fetchPaymentKey = createAsyncThunk(
   "startup/fetchPaymentKey",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}${API_ENDPOINTS.PAYMENT.GET_KEY}`,
-      );
+      const response = await api.get(API_ENDPOINTS.PAYMENT.GET_KEY);
       return response.data?.data?.key || null;
     } catch (error) {
       return rejectWithValue(

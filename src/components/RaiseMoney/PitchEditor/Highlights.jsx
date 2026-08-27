@@ -4,15 +4,15 @@ import { updatePitchData } from "../../../redux/slice/pitchDataSlice";
 
 function Highlights() {
   const dispatch = useDispatch();
-  const pitchData = useSelector((state) => state.pitchData);
+  const highlightsPitchData = useSelector((state) => state.pitchData.highlights);
   const [highlightsData, setHighlightsData] = useState({ textData: {} });
 
   // Load data from Redux when component mounts or when pitchData changes
   useEffect(() => {
-    if (pitchData.highlights && pitchData.highlights.textData) {
-      setHighlightsData(pitchData.highlights);
+    if (highlightsPitchData && highlightsPitchData.textData) {
+      setHighlightsData(highlightsPitchData);
     }
-  }, [pitchData.highlights]);
+  }, [highlightsPitchData]);
   const handleChange = (e) => {
     const { name, value } = e.target;
 

@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 function FundingGoals() {
   const dispatch = useDispatch();
-  const pitchData = useSelector((state) => state.pitchData);
+  const fundingGoalsPitchData = useSelector(
+    (state) => state.pitchData.fundingGoals,
+  );
   const [fundingGoalData, setFundingGoalData] = useState({});
   const [value, setValue] = useState({
     startDate: "",
@@ -52,7 +54,7 @@ function FundingGoals() {
       }),
     );
 
-    console.log(pitchData);
+    console.log(fundingGoalsPitchData);
   };
 
   return (

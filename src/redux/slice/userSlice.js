@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../../utils/api";
 import { API_ENDPOINTS } from "../../constants/constants";
-
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1";
 
 const initialState = {
   followers: [],
@@ -16,10 +13,7 @@ export const fetchFollowers = createAsyncThunk(
   "user/fetchFollowers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}${API_ENDPOINTS.USER.GET_FOLLOWERS}`,
-        { withCredentials: true },
-      );
+      const response = await api.get(API_ENDPOINTS.USER.GET_FOLLOWERS);
       return response.data?.data || [];
     } catch (error) {
       return rejectWithValue(
@@ -33,10 +27,7 @@ export const fetchFollowing = createAsyncThunk(
   "user/fetchFollowing",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}${API_ENDPOINTS.USER.GET_FOLLOWING}`,
-        { withCredentials: true },
-      );
+      const response = await api.get(API_ENDPOINTS.USER.GET_FOLLOWING);
       return response.data?.data || [];
     } catch (error) {
       return rejectWithValue(
@@ -53,11 +44,7 @@ export const toggleFollowUser = createAsyncThunk(
       const endpoint = isFollowing
         ? API_ENDPOINTS.USER.UNFOLLOW
         : API_ENDPOINTS.USER.FOLLOW;
-      const response = await axios.post(
-        `${API_BASE_URL}${endpoint}`,
-        { user_id: userId },
-        { withCredentials: true },
-      );
+      const response = await api.post(endpoint, { user_id: userId });
       return { userId, isFollowing: !isFollowing, response: response.data };
     } catch (error) {
       return rejectWithValue(
@@ -71,10 +58,9 @@ export const updateInvestorProfile = createAsyncThunk(
   "user/updateInvestorProfile",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}${API_ENDPOINTS.INVESTOR.UPDATE_INVESTOR}`,
+      const response = await api.post(
+        API_ENDPOINTS.INVESTOR.UPDATE_INVESTOR,
         payload,
-        { withCredentials: true },
       );
       return response.data;
     } catch (error) {
@@ -89,10 +75,9 @@ export const updatePublicProfile = createAsyncThunk(
   "user/updatePublicProfile",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}${API_ENDPOINTS.USER.EDIT_PROFILE}`,
+      const response = await api.post(
+        API_ENDPOINTS.USER.EDIT_PROFILE,
         payload,
-        { withCredentials: true },
       );
       return response.data;
     } catch (error) {

@@ -15,17 +15,17 @@ import { updatePitchData } from "../../../redux/slice/pitchDataSlice";
 
 export default function Pitch() {
   const dispatch = useDispatch();
-  const pitchDataRedux = useSelector((state) => state.pitchData);
+  const pitchReduxData = useSelector((state) => state.pitchData.pitch);
   const [model, setModel] = useState("");
   const [pitchData, setPitchData] = useState({ textData: {} });
 
   // Load data from Redux when component mounts or when pitchData changes
   useEffect(() => {
-    if (pitchDataRedux.pitch && pitchDataRedux.pitch.textData) {
-      setPitchData(pitchDataRedux.pitch);
-      setModel(pitchDataRedux.pitch.textData.htmldata || "");
+    if (pitchReduxData && pitchReduxData.textData) {
+      setPitchData(pitchReduxData);
+      setModel(pitchReduxData.textData.htmldata || "");
     }
-  }, [pitchDataRedux.pitch]);
+  }, [pitchReduxData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

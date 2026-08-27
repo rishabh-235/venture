@@ -26,7 +26,9 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // skipAuthRedirect lets callers that handle 401s themselves (e.g. a
+    // silent token-refresh flow) opt out of the global redirect.
+    if (error.response?.status === 401 && !error.config?.skipAuthRedirect) {
       // Handle unauthorized access
       localStorage.removeItem("token");
       window.location.href = "/login";

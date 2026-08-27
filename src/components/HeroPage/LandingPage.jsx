@@ -12,7 +12,6 @@ import FAQPage from "./FAQPage";
 import ReadyToFunding from "./ReadyToFunding";
 import FeedbackDisplay from "./FeedbackDisplay";
 import Lcards from "../Lcards";
-import { CircularArray } from "../../utils/dataStructures";
 import img1 from "../images/Lcarousel_img/adfontesmedia-card.webp";
 import img2 from "../images/Lcarousel_img/curlmix-card.webp";
 import img3 from "../images/Lcarousel_img/doorvest-card.webp";
@@ -31,12 +30,9 @@ import logo6 from "../images/Lcarousel_img/fj-labs-logo-gray.webp";
 import logo7 from "../images/Lcarousel_img/founderment-logo-gray.webp";
 
 const LandingPage = () => {
-  // Create a CircularArray to manage the props for CardDefault
-  // Using useMemo to prevent recreation on every render
-  const cardsArray = useMemo(() => {
-    const array = new CircularArray(9); // Set the capacity as needed
-
-    const cardData = [
+  // Static card data; indexed with modulo below to loop through it for carousels
+  const cardData = useMemo(
+    () => [
       { src: img1, invested: "595877", investor: "896", coinvested: logo1 },
       { src: img2, invested: "4537310", investor: "6948", coinvested: logo2 },
       { src: img3, invested: "383219", investor: "574", coinvested: logo3 },
@@ -46,11 +42,9 @@ const LandingPage = () => {
       { src: img7, invested: "7809219", investor: "6688", coinvested: logo4 },
       { src: img8, invested: "2987382", investor: "1125", coinvested: logo6 },
       { src: img9, invested: "156867", investor: "83", coinvested: logo7 },
-    ];
-
-    cardData.forEach((card) => array.enqueue(card));
-    return array;
-  }, []);
+    ],
+    [],
+  );
 
   return (
     <>
@@ -91,16 +85,19 @@ const LandingPage = () => {
           </div>
 
           <div className="flex items-center justify-center">
-            <Mycarousel children={cardsArray}>
-              {Array.from({ length: 24 }).map((_, index) => (
-                <Lcards
-                  key={index}
-                  Src={cardsArray.peek().src}
-                  Invested={cardsArray.peek().invested}
-                  Investor={cardsArray.peek().investor}
-                  Coinvested={cardsArray.peek().coinvested}
-                />
-              ))}
+            <Mycarousel>
+              {Array.from({ length: 24 }).map((_, index) => {
+                const card = cardData[index % cardData.length];
+                return (
+                  <Lcards
+                    key={index}
+                    Src={card.src}
+                    Invested={card.invested}
+                    Investor={card.investor}
+                    Coinvested={card.coinvested}
+                  />
+                );
+              })}
             </Mycarousel>
           </div>
         </div>
@@ -154,35 +151,37 @@ const LandingPage = () => {
             <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-orange-100 via-orange-100 to-transparent z-10"></div>
             <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-10 "></div>
             <div className="flex items-center justify-center w-72 -m-4 ">
-              <Vercarousel children={cardsArray} anime={"U"} rever={""}>
-                {Array.from({ length: 9 }).map((_, index) => (
-                  <Lcards
-                    key={index}
-                    Src={cardsArray.top().src}
-                    Invested={cardsArray.top().invested}
-                    Investor={cardsArray.top().investor}
-                    Coinvested={cardsArray.peek().coinvested}
-                  />
-                ))}
+              <Vercarousel anime={"U"} rever={""}>
+                {Array.from({ length: 9 }).map((_, index) => {
+                  const card = cardData[index % cardData.length];
+                  return (
+                    <Lcards
+                      key={index}
+                      Src={card.src}
+                      Invested={card.invested}
+                      Investor={card.investor}
+                      Coinvested={card.coinvested}
+                    />
+                  );
+                })}
               </Vercarousel>
             </div>
 
             <div className="flex items-center justify-center w-72">
-              <Vercarousel
-                children={cardsArray}
-                anime={"D"}
-                rever={"flex flex-col-reverse"}
-              >
+              <Vercarousel anime={"D"} rever={"flex flex-col-reverse"}>
                 {Array.from({ length: 12 })
-                  .map((_, index) => (
-                    <Lcards
-                      key={index}
-                      Src={cardsArray.top().src}
-                      Invested={cardsArray.top().invested}
-                      Investor={cardsArray.top().investor}
-                      Coinvested={cardsArray.peek().coinvested}
-                    />
-                  ))
+                  .map((_, index) => {
+                    const card = cardData[index % cardData.length];
+                    return (
+                      <Lcards
+                        key={index}
+                        Src={card.src}
+                        Invested={card.invested}
+                        Investor={card.investor}
+                        Coinvested={card.coinvested}
+                      />
+                    );
+                  })
                   .reverse()}
               </Vercarousel>
             </div>

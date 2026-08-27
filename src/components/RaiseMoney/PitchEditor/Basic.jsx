@@ -4,7 +4,7 @@ import { updatePitchData } from "../../../redux/slice/pitchDataSlice";
 
 function Basic() {
   const dispatch = useDispatch();
-  const pitchData = useSelector((state) => state.pitchData);
+  const basicPitchData = useSelector((state) => state.pitchData.basic);
   const imageInputRef = useRef(null);
   const videoInputRef = useRef(null);
   const logoInputRef = useRef(null);
@@ -13,10 +13,10 @@ function Basic() {
 
   // Load data from Redux when component mounts or when pitchData changes
   useEffect(() => {
-    if (pitchData.basic && pitchData.basic.textData) {
-      setBasicData(pitchData.basic);
+    if (basicPitchData && basicPitchData.textData) {
+      setBasicData(basicPitchData);
     }
-  }, [pitchData.basic]);
+  }, [basicPitchData]);
 
   const handleChange = (e) => {
     e.preventDefault();

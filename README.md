@@ -72,8 +72,7 @@ src/
 ├── utils/
 │   ├── api.js            # axios instance + interceptors
 │   ├── loadRazorpayScript.js
-│   ├── pitchDataTransforms.js
-│   └── dataStructures/
+│   └── pitchDataTransforms.js
 ├── hooks/
 ├── layouts/
 └── App.jsx              # Route tree, lazy-loaded route components, auth bootstrap
