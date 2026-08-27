@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import InvestorCard from "./InvestorCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTopInvestors } from "../../redux/slice/investorSlice";
@@ -12,8 +12,9 @@ export default function TopInvestors() {
     dispatch(fetchTopInvestors());
   }, [dispatch]);
 
-  const filteredCards = cards.filter(
-    (card) => card.user?._id !== userData?._id,
+  const filteredCards = useMemo(
+    () => cards.filter((card) => card.user?._id !== userData?._id),
+    [cards, userData?._id],
   );
 
   return (

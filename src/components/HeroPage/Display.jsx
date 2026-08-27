@@ -4,26 +4,31 @@ import { Button } from "@material-tailwind/react";
 
 const data = [
   {
+    id: "coding-platform",
     text: "A coding platform for all",
     emojis: "👩🏽",
     link: "https://reactjs.org/",
   },
   {
+    id: "vr-workspaces",
     text: "Virtual reality workspaces",
     emojis: "🏗️",
     link: "https://github.com/your-username/your-project",
   },
   {
+    id: "cancer-cure-dogs",
     text: "A cure for cancer in dogs",
     emojis: "🐶",
     link: "https://github.com/your-username/your-project",
   },
   {
+    id: "media-literacy",
     text: "Increasing media literacy",
     emojis: "🗞",
     link: "https://github.com/your-username/your-project",
   },
   {
+    id: "community-supermarket",
     text: "A community-owned supermarket",
     emojis: "🛒",
     link: "https://github.com/your-username/your-project",
@@ -55,8 +60,8 @@ export default class Display extends Component {
           <div className="mt-12 mb-10 w-[97vw]">
             <div className="flex mb-4 items-center justify-center relative overflow-hidden bg-white before:absolute before:left-0 before:top-0 before:z-[2] before:h-full before:w-40 before:bg-[linear-gradient(to_right,white_0%,rgba(255,255,255,0)_100%)] before:content-[''] after:absolute after:right-0 after:top-0 after:z-[2] after:h-full after:w-40 after:-scale-x-100 after:bg-[linear-gradient(to_right,white_0%,rgba(255,255,255,0)_100%)] after:content-['']">
               <Mycarousel children={this.cardsArray} anime={"RL"}>
-                {data.map((but, index) => (
-                  <a key={index} href={`${but.link}`} className="button-link">
+                {data.map((but) => (
+                  <a key={but.id} href={`${but.link}`} className="button-link">
                     <Button
                       variant="outlined"
                       className="flex justify-center items-center px-4 w-max gap-4 h-8 rounded-lg border-gray-400 ml-4 font-normal text-black tracking-wide"
@@ -74,8 +79,8 @@ export default class Display extends Component {
                 anime={"LR"}
                 rever={"flex flex-row-reverse"}
               >
-                {data.map((but, index) => (
-                  <a key={index} href={`${but.link}`} className="button-link">
+                {data.map((but) => (
+                  <a key={but.id} href={`${but.link}`} className="button-link">
                     <Button
                       variant="outlined"
                       className="flex justify-center items-center px-4 w-max gap-4 h-8 rounded-lg border-gray-400 ml-4 font-normal text-black tracking-wide"
@@ -112,8 +117,8 @@ export default class Display extends Component {
           <div className="mt-10 mb-10 w-[80vw]">
             <div className="flex mb-4 items-center justify-center relative overflow-hidden bg-white before:absolute before:left-0 before:top-0 before:z-[2] before:h-full before:w-40 before:bg-[linear-gradient(to_right,white_0%,rgba(255,255,255,0)_100%)] before:content-[''] after:absolute after:right-0 after:top-0 after:z-[2] after:h-full after:w-40 after:-scale-x-100 after:bg-[linear-gradient(to_right,white_0%,rgba(255,255,255,0)_100%)] after:content-['']">
               <Mycarousel children={this.cardsArray} anime={"RL"}>
-                {data.map((but, index) => (
-                  <a key={index} href={`${but.link}`} className="button-link">
+                {data.map((but) => (
+                  <a key={but.id} href={`${but.link}`} className="button-link">
                     <Button
                       variant="outlined"
                       className="flex justify-center items-center px-[1.8vw] w-max gap-4 lg:h-10 h-[2.8vw] rounded-lg border-gray-400 ml-4 lg:text-[15px] text-[1.2vw] font-normal text-black tracking-wide"
@@ -131,8 +136,8 @@ export default class Display extends Component {
                 anime={"LR"}
                 rever={"flex flex-row-reverse"}
               >
-                {data.map((but, index) => (
-                  <a key={index} href={`${but.link}`} className="button-link">
+                {data.map((but) => (
+                  <a key={but.id} href={`${but.link}`} className="button-link">
                     <Button
                       variant="outlined"
                       className="flex justify-center items-center px-[1.8vw] w-max gap-4 lg:h-10 h-[2.8vw] rounded-lg border-gray-400 ml-4 lg:text-[15px] text-[1.2vw] font-normal text-black tracking-wide"

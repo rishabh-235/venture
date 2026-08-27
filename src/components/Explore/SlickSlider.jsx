@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-export default function SlickSlider() {
-  const [curr, setCurr] = useState(0);
-  const children = [
+import React, { useState, useMemo } from "react";
+
+const CATEGORIES = [
     {
       style: "hub",
       name: "Technology",
@@ -194,6 +193,14 @@ export default function SlickSlider() {
     },
   ];
 
+export default function SlickSlider() {
+  const [curr, setCurr] = useState(0);
+  const children = CATEGORIES;
+  const slideStyle = useMemo(
+    () => ({ transform: `translateX(-${curr * 300}%)` }),
+    [curr],
+  );
+
   const prev = () => {
     setCurr((prevCurr) =>
       prevCurr === 0 ? children.length - 1 : prevCurr - 1.5
@@ -235,7 +242,7 @@ export default function SlickSlider() {
           <div
             key={i}
             className=" transition-transform ease-out duration-500"
-            style={{ transform: `translateX(-${curr * 300}%)` }}
+            style={slideStyle}
           >
             <div className=" w-[8.5rem] flex justify-evenly cursor-pointer">
               <div className="  text-gray-500 hover:text-light-blue-800 hover:border-b-2 hover:border-light-blue-800">

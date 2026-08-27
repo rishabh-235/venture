@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import {
   Card,
   CardHeader,
@@ -7,7 +7,7 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 
-export default function Lcards({ Src, Invested, Investor, Coinvested }) {
+function Lcards({ Src, Invested, Investor, Coinvested }) {
   const [Img, setImg] = useState("");
 
   useEffect(() => {
@@ -46,3 +46,5 @@ export default function Lcards({ Src, Invested, Investor, Coinvested }) {
     </Card>
   );
 }
+
+export default memo(Lcards);

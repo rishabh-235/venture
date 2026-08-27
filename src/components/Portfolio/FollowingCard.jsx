@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFollowUser } from "../../redux/slice/userSlice";
 import { optimizeCloudinaryUrl } from "../cloudinary";
 
-export default function FollowingCard(props) {
+function FollowingCard(props) {
   const following = props.data;
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.userData);
@@ -74,3 +74,5 @@ export default function FollowingCard(props) {
     </div>
   );
 }
+
+export default memo(FollowingCard);

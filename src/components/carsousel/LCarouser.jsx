@@ -1,22 +1,22 @@
 // https://www.youtube.com/watch?v=XJSOgV4VELk&ab_channel=YourCodeLab
 
+import { useMemo } from "react";
 
 export default function Mycarousel({
   children: slides,
 }){
 
-  const clonedSlides = [
-    slides[slides.length],
-    ...slides,
-    slides[0],
-  ];
+  const clonedSlides = useMemo(
+    () => [slides[slides.length], ...slides, slides[0]],
+    [slides],
+  );
 
   return (
     <div className="flex overflow-hidden" >
       <div className="slide flex"
       >
         {clonedSlides.map((slide, index) => (
-          <div key={index} >
+          <div key={slide?.key ?? index} >
             {slide}
           </div>
         ))}
@@ -25,7 +25,7 @@ export default function Mycarousel({
       <div className="slide flex"
       >
         {clonedSlides.map((slide, index) => (
-          <div key={index} >
+          <div key={slide?.key ?? index} >
             {slide}
           </div>
         ))}

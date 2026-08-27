@@ -4,6 +4,7 @@ import avat from "../images/feedback_avatar.webp";
 
 const data = [
   {
+    id: "seedsheet",
     feedback:
       `"A simple easy gardening solution for folks is a no-brainer! Access to fresh and healthy food for all is a cuase I'm super passionate about."`,
     Avatar: "",
@@ -13,6 +14,7 @@ const data = [
   },
 
   {
+    id: "replit",
     feedback:
       `"I am huge Mercury Stan! All My companies use it. It is the bank built for human intuition, and y'all are just scratching the surface"`,
     Avatar: "",
@@ -29,9 +31,9 @@ export default class FeedbackDisplay extends Component {
         <div className="mt-12 mb-10 w-[85vw]">
           <div className="flex mb-4 items-center justify-center relative overflow-hidden bg-white before:absolute before:left-0 before:top-0 before:z-[2] before:h-full before:w-40 before:bg-[linear-gradient(to_right,white_0%,rgba(255,255,255,0)_100%)] before:content-[''] after:absolute after:right-0 after:top-0 after:z-[2] after:h-full after:w-40 after:-scale-x-100 after:bg-[linear-gradient(to_right,white_0%,rgba(255,255,255,0)_100%)] after:content-['']">
             <Mycarousel children={this.cardsArray} anime={"RL"}>
-              {data.map((but, index) => (
+              {data.map((but) => (
                 <div
-                  key={index}
+                  key={but.id}
                   className=" w-[24rem] h-[16rem] ml-5 border-[2px] rounded-xl"
                 >
                   <div className=" mt-3 h-[9rem] font-[500] tracking-wide p-5 text-start">
@@ -67,9 +69,9 @@ export default class FeedbackDisplay extends Component {
               anime={"LR"}
               rever={"flex flex-row-reverse"}
             >
-              {data.map((but, index) => (
+              {data.map((but) => (
                 <div
-                  key={index}
+                  key={but.id}
                   className=" w-[24rem] h-[16rem] ml-5 border-[2px] rounded-xl"
                 >
                   <div className=" mt-3 h-[9rem] font-[500] tracking-wide p-5 text-start">

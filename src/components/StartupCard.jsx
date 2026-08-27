@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { Button } from "@material-tailwind/react";
 import { optimizeCloudinaryUrl } from "./cloudinary";
 
@@ -106,4 +106,4 @@ const StartupCard = ({ data }) => {
   );
 };
 
-export default StartupCard;
+export default memo(StartupCard);

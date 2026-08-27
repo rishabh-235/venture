@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../../components/images/Group_74318.png";
-import FollowerCard from "../../components/Portfolio/followerCard";
+import FollowerCard from "../../components/Portfolio/FollowerCard";
 import { fetchFollowers } from "../../redux/slice/userSlice";
 
 export default function FollowersPage() {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StartupCard from "../../components/StartupCard";
 import { fetchTopFounders } from "../../redux/slice/startupSlice";
@@ -7,6 +7,10 @@ export default function Startupview() {
   const dispatch = useDispatch();
   const [curr, setCurr] = useState(0);
   const children = useSelector((state) => state.startup.topFounders);
+  const slideStyle = useMemo(
+    () => ({ transform: `translateX(-${curr * 100}%)` }),
+    [curr],
+  );
 
   useEffect(() => {
     dispatch(fetchTopFounders());
@@ -44,7 +48,7 @@ export default function Startupview() {
         {children.map((startup, i) => (
           <div
             className=" transition-transform ease-out duration-500"
-            style={{ transform: `translateX(-${curr * 100}%)` }}
+            style={slideStyle}
             key={i}
           >
             <StartupCard data={startup} />

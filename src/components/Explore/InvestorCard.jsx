@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { Avatar } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toggleFollowUser } from "../../redux/slice/userSlice";
 
-export default function InvestorCard(props) {
+function InvestorCard(props) {
   const { data } = props;
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.userData);
@@ -79,3 +79,5 @@ export default function InvestorCard(props) {
     </div>
   );
 }
+
+export default memo(InvestorCard);

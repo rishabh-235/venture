@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Button } from "@material-tailwind/react";
 import StartupCard from "../StartupCard";
 
 const StartupDisplay = () => {
   const [curr, setCurr] = useState(0);
   const children = [1, 2, 3, 4, 5, 6, 7, 8];
+  const slideStyle = useMemo(
+    () => ({ transform: `translateX(-${curr * 100}%)` }),
+    [curr],
+  );
 
   const prev = () => {
     setCurr((prevCurr) =>
@@ -60,7 +64,7 @@ const StartupDisplay = () => {
             <div
               key={child}
               className=" transition-transform ease-out duration-500"
-              style={{ transform: `translateX(-${curr * 100}%)` }}
+              style={slideStyle}
             >
               <StartupCard />
             </div>

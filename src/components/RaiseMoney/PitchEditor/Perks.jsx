@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { updatePitchData } from "../../../redux/slice/pitchDataSlice";
 
@@ -20,11 +20,13 @@ function Perks() {
     setTableItems([...tableItems, newItem]);
   };
 
-  const removeItem = (id) => {
-    const updatedItems = tableItems.filter((item) => item.id !== id);
-    setTableItems(updatedItems);
-
-    if (updatedItems.length === 0) setTable(false);
+  const removeItem = useCallback((e) => {
+    const id = Number(e.currentTarget.dataset.id);
+    setTableItems((prevItems) => {
+      const updatedItems = prevItems.filter((item) => item.id !== id);
+      if (updatedItems.length === 0) setTable(false);
+      return updatedItems;
+    });
 
     setPerksData((prevState) => {
       const updatedTextData = { ...prevState.textData };
@@ -35,7 +37,7 @@ function Perks() {
         textData: updatedTextData,
       };
     });
-  };
+  }, []);
 
   
 useEffect(() => {
@@ -53,8 +55,9 @@ useEffect(() => {
   );
 }, [localTextData, dispatch]);
 
-  const handleChange = (e, id) => {
-    const { name, value } = e.target;
+  const handleChange = useCallback((e) => {
+    const { name, value, dataset } = e.target;
+    const id = Number(dataset.id);
 
     setPerksData((prevState) => ({
       ...prevState,
@@ -81,8 +84,7 @@ useEffect(() => {
         },
       })
     );
-
-  };
+  }, [perksData, dispatch]);
 
   return (
     <div className=" flex flex-col items-start">
@@ -122,8 +124,9 @@ useEffect(() => {
                       className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none peer focus:placeholder:text-transparent focus:ring-black focus:border-none pl-[1.7rem] flex justify-center items-center text-[1.02rem] tracking-wider pt-2 font-[600] text-gray-900 placeholder:text-blue-gray-200 w-[7.8rem] h-[3.7rem] rounded-[0.4rem] border-gray-300 border-[1px]"
                       type="number"
                       name="investOver"
+                      data-id={item.id}
                       placeholder={item.placeholder}
-                      onChange={(e) => handleChange(e, item.id)}
+                      onChange={handleChange}
                     />
                     <label
                       htmlFor={`investOver-${item.id}`}
@@ -140,13 +143,14 @@ useEffect(() => {
                       className=" peer focus:placeholder:text-transparent focus:ring-black focus:border-none pl-[1rem] flex justify-center items-center text-[1.02rem] tracking-wider pt-2 font-[600] text-gray-900 placeholder:text-blue-gray-200 w-[31rem] h-[3.7rem] rounded-[0.4rem] border-gray-300 border-[1px]"
                       type="text"
                       name="toReceive"
+                      data-id={item.id}
                       placeholder=""
-                      onChange={(e) => handleChange(e, item.id)}
+                      onChange={handleChange}
                     />
                   </div>
                 </td>
                 <td className=" p-1">
-                  <button onClick={() => removeItem(item.id)}>
+                  <button data-id={item.id} onClick={removeItem}>
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
